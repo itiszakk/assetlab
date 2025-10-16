@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<SplitPane dividerPositions="0.3" stylesheets="@/css/settings.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itiszakk.assetlab.desktop.controller.SettingsController">
+    <VBox>
+        <TextField fx:id="searchField" />
+        <ListView fx:id="categoriesView" VBox.vgrow="ALWAYS" />
+    </VBox>
+    <VBox>
+        <Label fx:id="categoryLabel" />
+        <ScrollPane>
+            <VBox fx:id="settingsContainer" />
+        </ScrollPane>
+    </VBox>
+</SplitPane>

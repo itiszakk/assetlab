@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="metadataContainer" styleClass="container" stylesheets="@/css/metadata.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itiszakk.assetlab.desktop.controller.MetadataController">
+    <HBox styleClass="actions-container">
+        <Button onAction="#saveMetadata" styleClass="save-metadata-button" text="%metadata.action.save" />
+        <Button onAction="#deleteAsset" styleClass="delete-asset-button" text="%metadata.action.delete" />
+    </HBox>
+    <Separator />
+    <ScrollPane styleClass="scroll-container" VBox.vgrow="ALWAYS">
+        <VBox styleClass="info-container">
+            <VBox>
+                <Label styleClass="title-label" text="%metadata.info.asset.title" />
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.asset.field.id" />
+                    <Label fx:id="idLabel" />
+                </VBox>
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.asset.field.name" />
+                    <Label fx:id="nameLabel" />
+                </VBox>
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.asset.field.extension" wrapText="true" />
+                    <Label fx:id="extensionLabel" />
+                </VBox>
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.asset.field.path" />
+                    <Label fx:id="pathLabel" />
+                </VBox>
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.asset.field.resolution" />
+                    <Label fx:id="resolutionLabel" />
+                </VBox>
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.asset.field.size" />
+                    <Label fx:id="sizeLabel" />
+                </VBox>
+            </VBox>
+            <Separator />
+            <VBox>
+                <Label styleClass="title-label" text="%metadata.info.metadata.title" />
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.metadata.field.display_name" />
+                    <TextField fx:id="displayNameField" />
+                </VBox>
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.metadata.field.description" />
+                    <TextArea fx:id="descriptionArea" />
+                </VBox>
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.metadata.field.timestamp" />
+                    <Label fx:id="timestampLabel" />
+                </VBox>
+                <VBox>
+                    <Label styleClass="field-label" text="%metadata.info.metadata.field.tags" />
+                    <FlowPane fx:id="tagsPane" styleClass="tags-container">
+                        <Button onAction="#upsertTag" text="+" />
+                    </FlowPane>
+                </VBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>

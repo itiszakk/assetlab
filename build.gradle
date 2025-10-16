@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+allprojects {
+    group = 'com.itiszakk'
+    version = '1.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+}

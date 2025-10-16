@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane stylesheets="@/css/main.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itiszakk.assetlab.desktop.controller.MainController">
+    <top>
+        <MenuBar>
+            <Menu text="%main.menu.file">
+                <MenuItem onAction="#loadAssets" text="%main.menu.file.load.assets" />
+                <SeparatorMenuItem/>
+                <MenuItem fx:id="settingsMenuItem" text="%main.menu.file.settings" />
+                <SeparatorMenuItem/>
+                <MenuItem onAction="#exit" text="%main.menu.file.exit" />
+            </Menu>
+            <Menu text="%main.menu.help">
+                <MenuItem fx:id="aboutMenuItem" text="%main.menu.help.about"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.25, 0.75">
+            <fx:include source="assets.fxml" />
+            <fx:include source="preview.fxml" />
+            <fx:include source="metadata.fxml" />
+        </SplitPane>
+    </center>
+</BorderPane>

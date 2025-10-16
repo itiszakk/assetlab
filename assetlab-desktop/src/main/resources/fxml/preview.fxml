@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="previewContainer" styleClass="preview-container" stylesheets="@/css/preview.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itiszakk.assetlab.desktop.controller.PreviewController">
+    <ScrollPane fx:id="previewScroll" styleClass="preview-scroll">
+        <StackPane>
+            <ImageView fx:id="preview" preserveRatio="true" />
+        </StackPane>
+    </ScrollPane>
+</StackPane>

@@ -1,0 +1,21 @@
+services:
+  assetlab-postgres:
+    image: postgres:15-alpine
+    ports:
+      - '5432:5432'
+    volumes:
+      - assetlab-postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${ASSETLAB_POSTGRES_DB}
+      POSTGRES_USER: ${ASSETLAB_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${ASSETLAB_POSTGRES_PASSWORD}
+    networks:
+      - assetlab-network
+
+volumes:
+  assetlab-postgres-data:
+    driver: local
+
+networks:
+  assetlab-network:
+    driver: bridge

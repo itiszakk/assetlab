@@ -1,0 +1,11 @@
+@import url("base.css");
+
+.preview-container {
+    -fx-alignment: center;
+}
+
+.preview-scroll {
+    -fx-pannable: true;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}

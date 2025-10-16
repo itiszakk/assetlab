@@ -1,0 +1,11 @@
+@import url("base.css");
+
+.assets-title {
+    -fx-alignment: baseline-left;
+}
+
+.count-label {
+    -fx-text-fill: #666666;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}

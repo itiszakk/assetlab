@@ -1,0 +1,38 @@
+@import url("base.css");
+
+.actions-container {
+    -fx-alignment: center-right;
+    -fx-spacing: 10;
+}
+
+.save-metadata-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+.delete-asset-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+}
+
+.scroll-container {
+    -fx-fit-to-width: true;
+}
+
+.info-container {
+    -fx-spacing: 10;
+}
+
+.tags-container {
+    -fx-vgap: 10;
+    -fx-hgap: 10;
+}
+
+.tag-container {
+    -fx-spacing: 5;
+    -fx-alignment: center;
+}
+
+.delete-tag-button {
+
+}

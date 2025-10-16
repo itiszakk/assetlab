@@ -1,0 +1,4 @@
+rootProject.name = 'assetlab'
+include 'assetlab-desktop'
+include 'assetlab-core'
+include 'assetlab-system'
