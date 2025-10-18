@@ -1,12 +1,14 @@
 plugins {
     id 'application'
-    id 'io.freefair.lombok' version '9.0.0'
     id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 dependencies {
     implementation project(':assetlab-system')
     implementation project(':assetlab-core')
+
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
 
     implementation 'com.google.dagger:dagger:2.57.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.57.1'

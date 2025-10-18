@@ -14,6 +14,7 @@ import com.itiszakk.assetlab.desktop.controller.SettingsController;
 import com.itiszakk.assetlab.desktop.service.StageService;
 import com.itiszakk.assetlab.desktop.service.impl.StageServiceImpl;
 import com.itiszakk.assetlab.system.service.ModuleDefinition;
+import com.itiszakk.assetlab.system.service.PropertyService;
 
 import dagger.Binds;
 import dagger.Module;
@@ -72,8 +73,8 @@ public interface DesktopModule {
 
     @Provides
     @Singleton
-    static SettingsController provideSettingsController(StageService stageService) {
-        SettingsController controller = new SettingsController();
+    static SettingsController provideSettingsController(StageService stageService, PropertyService propertyService) {
+        SettingsController controller = new SettingsController(propertyService);
         stageService.register(controller);
         return controller;
     }

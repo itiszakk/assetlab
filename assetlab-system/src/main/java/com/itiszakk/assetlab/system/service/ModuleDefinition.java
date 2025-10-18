@@ -11,14 +11,14 @@ public interface ModuleDefinition {
 
     int getInitOrder();
 
-    default void start() {}
+    default void start() {
+
+    }
 
     @SuppressWarnings("java:S1452")
     default Collection<PropertyDefinition<?>> getProperties() {
         return Collections.emptyList();
     }
 
-    default String getTextBundle() {
-        return null;
-    }
+    String getTextBundle();
 }

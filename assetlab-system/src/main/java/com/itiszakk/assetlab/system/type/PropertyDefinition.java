@@ -1,7 +1,8 @@
 package com.itiszakk.assetlab.system.type;
 
+import java.util.Objects;
 import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,9 +15,13 @@ public class PropertyDefinition<T> {
 
     private final String id;
 
-    private final T defaultValue;
+    private final Supplier<String> name;
 
-    private final Predicate<T> validator;
+    private final Supplier<String> description;
+
+    private final PropertyCategory category;
+
+    private final T defaultValue;
 
     private final Function<T, String> serializer;
 
@@ -27,11 +32,25 @@ public class PropertyDefinition<T> {
     private PropertyDefinition(PropertyDefinitionBuilder<T> builder) {
         this.type = builder.type;
         this.id = builder.id;
+        this.name = builder.name;
+        this.description = builder.description;
+        this.category = builder.category;
         this.defaultValue = builder.defaultValue;
         this.value = builder.defaultValue;
-        this.validator = builder.validator;
         this.serializer = builder.serializer;
         this.deserializer = builder.deserializer;
+    }
+
+    public String serialize() {
+        return serializer.apply(value);
+    }
+
+    public T deserialize(String input) {
+        return deserializer.apply(input);
+    }
+
+    public static PropertyDefinitionBuilder<String> string() {
+        return new PropertyDefinitionBuilder<>(String.class);
     }
 
     public static <T> PropertyDefinitionBuilder<T> builder(Class<T> type) {
@@ -44,9 +63,13 @@ public class PropertyDefinition<T> {
 
         private String id;
 
-        private T defaultValue;
+        private Supplier<String> name;
 
-        private Predicate<T> validator;
+        private Supplier<String> description;
+
+        private PropertyCategory category;
+
+        private T defaultValue;
 
         private Function<T, String> serializer;
 
@@ -61,13 +84,23 @@ public class PropertyDefinition<T> {
             return this;
         }
 
-        public PropertyDefinitionBuilder<T> defaultValue(T defaultValue) {
-            this.defaultValue = defaultValue;
+        public PropertyDefinitionBuilder<T> name(Supplier<String> name) {
+            this.name = name;
             return this;
         }
 
-        public PropertyDefinitionBuilder<T> validator(Predicate<T> validator) {
-            this.validator = validator;
+        public PropertyDefinitionBuilder<T> description(Supplier<String> description) {
+            this.description = description;
+            return this;
+        }
+
+        public PropertyDefinitionBuilder<T> category(PropertyCategory category) {
+            this.category = category;
+            return this;
+        }
+
+        public PropertyDefinitionBuilder<T> defaultValue(T defaultValue) {
+            this.defaultValue = defaultValue;
             return this;
         }
 
@@ -82,6 +115,10 @@ public class PropertyDefinition<T> {
         }
 
         public PropertyDefinition<T> build() {
+
+            Objects.requireNonNull(id, "Property id cannot be null");
+            Objects.requireNonNull(category, "Property category cannot be null");
+
             return new PropertyDefinition<>(this);
         }
     }

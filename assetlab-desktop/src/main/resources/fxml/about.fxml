@@ -4,5 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane stylesheets="@/css/about.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itiszakk.assetlab.desktop.controller.AboutController">
-    <Label>Test</Label>
+    <VBox>
+        <Label styleClass="build-title" fx:id="buildTitle"/>
+        <Label fx:id="buildTimestamp"/>
+    </VBox>
 </StackPane>

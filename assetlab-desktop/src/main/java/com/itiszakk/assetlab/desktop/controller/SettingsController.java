@@ -1,7 +1,6 @@
 package com.itiszakk.assetlab.desktop.controller;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,9 +8,9 @@ import javax.inject.Inject;
 
 import com.itiszakk.assetlab.desktop.service.StageDefinition;
 import com.itiszakk.assetlab.desktop.type.StageProperty;
-import com.itiszakk.assetlab.desktop.type.item.LocalizedItem;
-import com.itiszakk.assetlab.desktop.type.settings.GeneralSettingsCategory;
-import com.itiszakk.assetlab.desktop.type.settings.SettingsCategory;
+import com.itiszakk.assetlab.system.service.PropertyService;
+import com.itiszakk.assetlab.system.type.PropertyCategory;
+import com.itiszakk.assetlab.system.type.PropertyDefinition;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
 import javafx.collections.FXCollections;
@@ -20,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class SettingsController implements StageDefinition {
@@ -40,17 +40,15 @@ public class SettingsController implements StageDefinition {
         STAGE_PROPERTIES.put(StageProperty.MIN_HEIGHT, STAGE_MIN_HEIGHT);
     }
 
-    private static final List<SettingsCategory> CATEGORIES = List.of(
-            new GeneralSettingsCategory()
-    );
+    private final PropertyService propertyService;
 
-    private final ObservableList<LocalizedItem> categoryItems = FXCollections.observableArrayList();
+    private final ObservableList<PropertyCategory> categoryItems = FXCollections.observableArrayList();
 
     @FXML
     private TextField searchField;
 
     @FXML
-    private ListView<LocalizedItem> categoriesView;
+    private ListView<PropertyCategory> categoriesView;
 
     @FXML
     private Label categoryLabel;
@@ -59,8 +57,8 @@ public class SettingsController implements StageDefinition {
     private VBox settingsContainer;
 
     @Inject
-    public SettingsController() {
-
+    public SettingsController(PropertyService propertyService) {
+        this.propertyService = propertyService;
     }
 
     @Override
@@ -76,22 +74,31 @@ public class SettingsController implements StageDefinition {
     @FXML
     private void initialize() {
 
-        Map<String, SettingsCategory> categoryById = HashMap.newHashMap(CATEGORIES.size());
-        CATEGORIES.forEach(category -> {
-            categoryById.put(category.getId(), category);
-            categoryItems.add(LocalizedItem.of(category.getId()));
-        });
+        Map<PropertyCategory, List<PropertyDefinition<?>>> propertiesByCategory =
+                propertyService.getPropertiesByCategory();
 
-        categoryItems.addAll();
+        categoryItems.addAll(propertiesByCategory.keySet());
         categoriesView.setItems(categoryItems);
         categoriesView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, prev, next) -> {
-                    String categoryId = next.getId();
-                    showCategorySettings(categoryById.get(categoryId));
-                });
+                .addListener((observable, prev, next) -> showCategorySettings(next, propertiesByCategory.get(next)));
     }
 
-    private void showCategorySettings(SettingsCategory category) {
-        categoryLabel.setText(TextUtils.getText(category.getId()));
+    private void showCategorySettings(PropertyCategory category, List<PropertyDefinition<?>> properties) {
+
+        categoryLabel.setText(category.getName().get());
+        settingsContainer.getChildren().clear();
+
+        for (PropertyDefinition<?> property : properties) {
+            settingsContainer.getChildren().add(createPropertyContainer(property));
+        }
+    }
+
+    private static HBox createPropertyContainer(PropertyDefinition<?> property) {
+
+        HBox container = new HBox();
+        container.getChildren().add(new Label(property.getName().get()));
+        container.getChildren().add(new TextField(property.serialize()));
+
+        return container;
     }
 }

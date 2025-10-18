@@ -1,13 +1,49 @@
+import java.time.Instant
+
 plugins {
     id 'java-library'
-    id 'io.freefair.lombok' version '9.0.0'
     id 'org.flywaydb.flyway' version '11.13.2'
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+
     implementation 'com.google.dagger:dagger:2.57.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.57.1'
 
     implementation 'org.apache.commons:commons-lang3:3.19.0'
     implementation 'org.apache.commons:commons-collections4:4.5.0'
 }
+
+tasks.register("generateBuildInfo") {
+
+    def outputDir = layout.buildDirectory.dir("generated/sources/buildInfo/java/main")
+    def outputFile = outputDir.map { dir ->
+        dir.file("com.itiszakk.assetlab.system/BuildInfo.java").asFile
+    }
+
+    outputs.file outputFile
+
+    doLast {
+        outputFile.get().parentFile.mkdirs()
+        outputFile.get().text = """
+        |package com.itiszakk.assetlab.system;
+        |
+        |import java.time.Instant;
+        |
+        |public final class BuildInfo {
+        |
+        |    public static final String VERSION = "${rootProject.version}";
+        |
+        |    public static final Instant TIMESTAMP = Instant.ofEpochMilli(${Instant.now().toEpochMilli()}L);
+        |
+        |    private BuildInfo() {}
+        |}
+        |
+        """.stripMargin();
+    }
+}
+
+sourceSets.main.java.srcDir layout.buildDirectory.dir("generated/sources/buildInfo/java/main")
+compileJava.dependsOn generateBuildInfo

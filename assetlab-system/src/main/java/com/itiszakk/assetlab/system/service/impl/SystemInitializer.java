@@ -8,7 +8,6 @@ import com.itiszakk.assetlab.system.service.ModuleDefinition;
 import com.itiszakk.assetlab.system.service.ModuleService;
 import com.itiszakk.assetlab.system.service.PropertyService;
 import com.itiszakk.assetlab.system.service.TextService;
-import com.itiszakk.assetlab.system.util.ModuleUtils;
 
 public class SystemInitializer {
 
@@ -25,8 +24,6 @@ public class SystemInitializer {
         this.moduleService = moduleService;
         this.textService = textService;
         this.propertyService = propertyService;
-
-        ModuleUtils.init(moduleService);
     }
 
     public void initialize() {
@@ -36,7 +33,7 @@ public class SystemInitializer {
     }
 
     private void initializeModule(ModuleDefinition module) {
-        textService.registerBundle(module.getId(), module.getTextBundle());
+        textService.register(module.getTextBundle(), module.getClass().getClassLoader());
         module.getProperties().forEach(propertyService::register);
         module.start();
     }

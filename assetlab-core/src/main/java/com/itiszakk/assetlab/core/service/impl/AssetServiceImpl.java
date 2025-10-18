@@ -10,16 +10,14 @@ import javax.inject.Inject;
 import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.type.Asset;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(onConstructor_ = @Inject)
 public class AssetServiceImpl
         extends AbstractLifecycleService<Asset>
         implements AssetService {
 
     private final Map<String, Asset> storage = new HashMap<>();
-
-    @Inject
-    public AssetServiceImpl() {
-
-    }
 
     @Override
     public Asset load(String id) {

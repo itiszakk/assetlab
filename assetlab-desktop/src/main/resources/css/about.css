@@ -1,1 +1,5 @@
 @import url("base.css");
+
+.build-title {
+    -fx-font-weight: bold;
+}

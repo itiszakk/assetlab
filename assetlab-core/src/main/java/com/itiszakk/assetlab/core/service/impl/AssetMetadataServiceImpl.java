@@ -9,16 +9,14 @@ import javax.inject.Inject;
 import com.itiszakk.assetlab.core.service.AssetMetadataService;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(onConstructor_ = @Inject)
 public class AssetMetadataServiceImpl
         extends AbstractLifecycleService<AssetMetadata>
         implements AssetMetadataService {
 
     private final Map<String, AssetMetadata> storage = new HashMap<>();
-
-    @Inject
-    public AssetMetadataServiceImpl() {
-
-    }
 
     @Override
     public AssetMetadata load(String id) {

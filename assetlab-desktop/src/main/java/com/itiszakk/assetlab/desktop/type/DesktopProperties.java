@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.itiszakk.assetlab.system.type.PropertyDefinition;
+import com.itiszakk.assetlab.system.util.TextUtils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,14 +12,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DesktopProperties {
 
-    public static final String PROPERTY_THEME = "desktop.general.theme";
+    private static final String THEME_PROPERTY_ID = "desktop.property.theme";
 
-    public static final PropertyDefinition<DesktopTheme> PROPERTY_THEME_DEFINITION = PropertyDefinition.builder(DesktopTheme.class)
-            .id(PROPERTY_THEME)
+    private static final String THEME_PROPERTY_DESCRIPTION = "desktop.property.theme.description";
+
+    public static final PropertyDefinition<DesktopTheme> THEME = PropertyDefinition.builder(DesktopTheme.class)
+            .id(THEME_PROPERTY_ID)
+            .name(() -> TextUtils.getText(THEME_PROPERTY_ID))
+            .description(() -> TextUtils.getText(THEME_PROPERTY_DESCRIPTION))
+            .category(DesktopPropertyCategories.APPEARANCE)
             .defaultValue(DesktopTheme.SYSTEM)
+            .serializer(DesktopTheme::getName)
+            .deserializer(DesktopTheme::valueOf)
             .build();
 
     public static final Collection<PropertyDefinition<?>> PROPERTY_DEFINITIONS = List.of(
-            PROPERTY_THEME_DEFINITION
+            THEME
     );
 }

@@ -4,5 +4,5 @@ public interface TextService {
 
     String getText(String code, Object... args);
 
-    void registerBundle(String moduleId, String bundle);
+    void register(String bundle, ClassLoader classLoader);
 }

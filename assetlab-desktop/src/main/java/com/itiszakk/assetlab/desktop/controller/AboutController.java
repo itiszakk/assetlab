@@ -7,9 +7,19 @@ import javax.inject.Inject;
 
 import com.itiszakk.assetlab.desktop.service.StageDefinition;
 import com.itiszakk.assetlab.desktop.type.StageProperty;
+import com.itiszakk.assetlab.system.BuildInfo;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(onConstructor_ = @Inject)
 public class AboutController implements StageDefinition {
+
+    private static final String BUILD_TITLE = "about.build.title";
+
+    private static final String BUILD_TIMESTAMP = "about.build.timestamp";
 
     private static final String STAGE_ID = "about";
 
@@ -27,9 +37,16 @@ public class AboutController implements StageDefinition {
         STAGE_PROPERTIES.put(StageProperty.MIN_HEIGHT, STAGE_MIN_HEIGHT);
     }
 
-    @Inject
-    public AboutController() {
+    @FXML
+    private Label buildTitle;
 
+    @FXML
+    private Label buildTimestamp;
+
+    @FXML
+    public void initialize() {
+        buildTitle.setText(TextUtils.getText(BUILD_TITLE, BuildInfo.VERSION));
+        buildTimestamp.setText(TextUtils.getText(BUILD_TIMESTAMP, BuildInfo.TIMESTAMP));
     }
 
     @Override

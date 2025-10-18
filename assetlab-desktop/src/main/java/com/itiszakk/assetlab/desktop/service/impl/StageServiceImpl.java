@@ -22,7 +22,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(onConstructor_ = @Inject)
 public class StageServiceImpl implements StageService {
 
     private static final String DIRECTORY_DELIMITER = "/";
@@ -32,11 +34,6 @@ public class StageServiceImpl implements StageService {
     private static final String FXML_EXTENSION = ".fxml";
 
     private final Map<Class<? extends StageDefinition>, StageDefinition> stages = new HashMap<>();
-
-    @Inject
-    public StageServiceImpl() {
-
-    }
 
     @Override
     public void register(StageDefinition stage) {

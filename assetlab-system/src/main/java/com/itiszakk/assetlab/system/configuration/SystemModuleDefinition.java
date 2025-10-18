@@ -15,6 +15,8 @@ public class SystemModuleDefinition implements ModuleDefinition {
 
     public static final String MODULE_ID = "com.itiszakk.assetlab.system";
 
+    private static final String TEXT_BUNDLE = "system_text";
+
     @Override
     public String getId() {
         return MODULE_ID;
@@ -28,5 +30,10 @@ public class SystemModuleDefinition implements ModuleDefinition {
     @Override
     public Collection<PropertyDefinition<?>> getProperties() {
         return SystemProperties.PROPERTY_DEFINITIONS;
+    }
+
+    @Override
+    public String getTextBundle() {
+        return TEXT_BUNDLE;
     }
 }
