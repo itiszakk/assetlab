@@ -1,10 +1,11 @@
 package com.itiszakk.assetlab.desktop.service;
 
+import com.itiszakk.assetlab.desktop.type.StageController;
 import com.itiszakk.assetlab.desktop.util.ControllerFactory;
 
 public interface StageService {
 
-    void register(StageDefinition stage);
+    void register(StageController stage);
 
-    void show(Class<? extends StageDefinition> stageClass, ControllerFactory controllerFactory);
+    void show(Class<? extends StageController> stageClass, ControllerFactory controllerFactory);
 }

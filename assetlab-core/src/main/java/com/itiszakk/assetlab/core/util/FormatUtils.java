@@ -7,22 +7,17 @@ import java.time.format.DateTimeFormatter;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class FormatUtils {
+public final class FormatUtils {
 
     private static final String ZERO_BYTES = "0 B";
-
     private static final String[] SIZE_UNITS = {"B", "KB", "MB", "GB", "TB"};
-
     private static final DecimalFormat SIZE_FORMAT = new DecimalFormat("#.##");
+    private static final String RESOLUTION_DELIMITER = "x";
 
     private static final DateTimeFormatter TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
             .withZone(ZoneId.systemDefault());
 
-    private static final String RESOLUTION_DELIMITER = "x";
-
-    private FormatUtils() {
-
-    }
+    private FormatUtils() {}
 
     public static String formatLocalDateTime(LocalDateTime ldt) {
         return TIMESTAMP_FORMAT.format(ldt);

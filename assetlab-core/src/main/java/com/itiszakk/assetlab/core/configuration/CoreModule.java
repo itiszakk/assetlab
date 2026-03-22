@@ -11,11 +11,11 @@ import com.itiszakk.assetlab.core.service.impl.TagServiceImpl;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 import com.itiszakk.assetlab.system.configuration.Module;
 import com.itiszakk.assetlab.system.configuration.SystemModule;
+import com.itiszakk.assetlab.system.service.EventService;
 
 public class CoreModule implements Module {
 
     public static final String MODULE_ID = "com.itiszakk.assetlab.core";
-
     private static final List<String> DEPENDENCIES = List.of(SystemModule.MODULE_ID);
 
     @Override
@@ -30,8 +30,8 @@ public class CoreModule implements Module {
 
     @Override
     public void init(ApplicationContext context) {
-        context.register(AssetService.class, new AssetServiceImpl());
-        context.register(AssetMetadataService.class, new AssetMetadataServiceImpl());
-        context.register(TagService.class, new TagServiceImpl());
+        context.register(AssetService.class, new AssetServiceImpl(context));
+        context.register(AssetMetadataService.class, new AssetMetadataServiceImpl(context));
+        context.register(TagService.class, new TagServiceImpl(context));
     }
 }

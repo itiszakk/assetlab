@@ -1,35 +1,22 @@
-package com.itiszakk.assetlab.system.type;
+package com.itiszakk.assetlab.system.type.property;
 
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class PropertyDefinition<T> {
 
     private final Class<T> type;
-
     private final String id;
-
     private final Supplier<String> name;
-
     private final Supplier<String> description;
-
     private final PropertyCategory category;
-
     private final T defaultValue;
-
     private final Function<T, String> serializer;
-
     private final Function<String, T> deserializer;
+    private final T value;
 
-    private T value;
-
-    private PropertyDefinition(PropertyDefinitionBuilder<T> builder) {
+    private PropertyDefinition(Builder<T> builder) {
         this.type = builder.type;
         this.id = builder.id;
         this.name = builder.name;
@@ -41,6 +28,34 @@ public class PropertyDefinition<T> {
         this.deserializer = builder.deserializer;
     }
 
+    public Class<T> getType() {
+        return type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name.get();
+    }
+
+    public String getDescription() {
+        return description.get();
+    }
+
+    public PropertyCategory getCategory() {
+        return category;
+    }
+
+    public T getDefaultValue() {
+        return defaultValue;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
     public String serialize() {
         return serializer.apply(value);
     }
@@ -49,67 +64,60 @@ public class PropertyDefinition<T> {
         return deserializer.apply(input);
     }
 
-    public static PropertyDefinitionBuilder<String> string() {
-        return new PropertyDefinitionBuilder<>(String.class);
+    public static Builder<String> string() {
+        return new Builder<>(String.class);
     }
 
-    public static <T> PropertyDefinitionBuilder<T> builder(Class<T> type) {
-        return new PropertyDefinitionBuilder<>(type);
+    public static <T> Builder<T> builder(Class<T> type) {
+        return new Builder<>(type);
     }
 
-    public static class PropertyDefinitionBuilder<T> {
+    public static class Builder<T> {
 
         private final Class<T> type;
-
         private String id;
-
         private Supplier<String> name;
-
         private Supplier<String> description;
-
         private PropertyCategory category;
-
         private T defaultValue;
-
         private Function<T, String> serializer;
-
         private Function<String, T> deserializer;
 
-        private PropertyDefinitionBuilder(Class<T> type) {
+        private Builder(Class<T> type) {
             this.type = type;
         }
 
-        public PropertyDefinitionBuilder<T> id(String id) {
+        public Builder<T> id(String id) {
             this.id = id;
             return this;
         }
 
-        public PropertyDefinitionBuilder<T> name(Supplier<String> name) {
+        public Builder<T> name(Supplier<String> name) {
             this.name = name;
             return this;
         }
 
-        public PropertyDefinitionBuilder<T> description(Supplier<String> description) {
+        public Builder<T> description(Supplier<String> description) {
             this.description = description;
             return this;
         }
 
-        public PropertyDefinitionBuilder<T> category(PropertyCategory category) {
+        public Builder<T> category(PropertyCategory category) {
             this.category = category;
             return this;
         }
 
-        public PropertyDefinitionBuilder<T> defaultValue(T defaultValue) {
+        public Builder<T> defaultValue(T defaultValue) {
             this.defaultValue = defaultValue;
             return this;
         }
 
-        public PropertyDefinitionBuilder<T> serializer(Function<T, String> serializer) {
+        public Builder<T> serializer(Function<T, String> serializer) {
             this.serializer = serializer;
             return this;
         }
 
-        public PropertyDefinitionBuilder<T> deserializer(Function<String, T> deserializer) {
+        public Builder<T> deserializer(Function<String, T> deserializer) {
             this.deserializer = deserializer;
             return this;
         }

@@ -8,9 +8,6 @@ dependencies {
     implementation project(':assetlab-system')
     implementation project(':assetlab-core')
 
-    compileOnly 'org.projectlombok:lombok:1.18.42'
-    annotationProcessor 'org.projectlombok:lombok:1.18.42'
-
     implementation 'org.apache.commons:commons-lang3:3.19.0'
     implementation 'org.apache.commons:commons-collections4:4.5.0'
 }

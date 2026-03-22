@@ -3,13 +3,11 @@ package com.itiszakk.assetlab.system.util;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.itiszakk.assetlab.system.type.SystemProperties;
+import com.itiszakk.assetlab.system.configuration.SystemProperties;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+public final class ResourceUtils {
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ResourceUtils {
+    private ResourceUtils() {}
 
     public static URL load(String name) {
         try {

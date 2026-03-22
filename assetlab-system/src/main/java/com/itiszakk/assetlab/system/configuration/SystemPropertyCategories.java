@@ -1,14 +1,13 @@
-package com.itiszakk.assetlab.system.type;
+package com.itiszakk.assetlab.system.configuration;
 
+import com.itiszakk.assetlab.system.type.property.PropertyCategory;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SystemPropertyCategories {
 
     private static final String GENERAL_CATEGORY_ID = "system.property.category.general";
+
+    private SystemPropertyCategories() {}
 
     public static final PropertyCategory GENERAL = PropertyCategory.builder()
             .id(GENERAL_CATEGORY_ID)

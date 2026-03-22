@@ -4,12 +4,12 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import com.itiszakk.assetlab.desktop.service.StageDefinition;
+import com.itiszakk.assetlab.desktop.type.StageController;
 import com.itiszakk.assetlab.desktop.type.StageOptions;
-import com.itiszakk.assetlab.system.service.PropertyService;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
-import com.itiszakk.assetlab.system.type.PropertyCategory;
-import com.itiszakk.assetlab.system.type.PropertyDefinition;
+import com.itiszakk.assetlab.system.service.PropertyService;
+import com.itiszakk.assetlab.system.type.property.PropertyCategory;
+import com.itiszakk.assetlab.system.type.property.PropertyDefinition;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
 import javafx.collections.FXCollections;
@@ -21,7 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class SettingsController implements StageDefinition {
+public class SettingsController implements StageController {
 
     private static final String STAGE_ID = "settings";
 
@@ -65,12 +65,13 @@ public class SettingsController implements StageDefinition {
     }
 
     @Override
-    public Map<StageOptions, Object> getProperties() {
+    public Map<StageOptions, Object> getOptions() {
         return STAGE_PROPERTIES;
     }
 
     @FXML
-    private void initialize() {
+    @Override
+    public void initialize() {
 
         Map<PropertyCategory, List<PropertyDefinition<?>>> propertiesByCategory =
                 propertyService.getPropertiesByCategory();
@@ -83,7 +84,7 @@ public class SettingsController implements StageDefinition {
 
     private void showCategorySettings(PropertyCategory category, List<PropertyDefinition<?>> properties) {
 
-        categoryLabel.setText(category.getName().get());
+        categoryLabel.setText(category.getName());
         settingsContainer.getChildren().clear();
 
         for (PropertyDefinition<?> property : properties) {
@@ -94,7 +95,7 @@ public class SettingsController implements StageDefinition {
     private static HBox createPropertyContainer(PropertyDefinition<?> property) {
 
         HBox container = new HBox();
-        container.getChildren().add(new Label(property.getName().get()));
+        container.getChildren().add(new Label(property.getName()));
         container.getChildren().add(new TextField(property.serialize()));
 
         return container;

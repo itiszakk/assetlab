@@ -1,8 +1,5 @@
 package com.itiszakk.assetlab.desktop.type;
 
-import lombok.Getter;
-
-@Getter
 public enum StageOptions {
 
     TITLE("title"),
@@ -14,5 +11,9 @@ public enum StageOptions {
 
     StageOptions(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

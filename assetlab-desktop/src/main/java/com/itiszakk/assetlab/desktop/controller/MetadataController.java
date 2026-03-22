@@ -13,8 +13,11 @@ import com.itiszakk.assetlab.core.type.Asset;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 import com.itiszakk.assetlab.core.type.Tag;
 import com.itiszakk.assetlab.core.util.FormatUtils;
-import com.itiszakk.assetlab.desktop.controller.listener.AssetSelectionListener;
+import com.itiszakk.assetlab.desktop.type.AssetItem;
+import com.itiszakk.assetlab.desktop.type.Controller;
+import com.itiszakk.assetlab.desktop.configuration.DesktopEvents;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
+import com.itiszakk.assetlab.system.service.EventService;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
@@ -29,22 +32,17 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MetadataController implements AssetSelectionListener {
+public class MetadataController implements Controller {
 
+    private static final String CONTROLLER_ID = "metadata";
     private static final String EMPTY_TAG_CONTAINER_ID = "$emptyTagContainer";
-
     private static final String EMPTY_TAG_FIELD_ID = "$emptyTagField";
-
     private static final String TAG_CONTAINER_ID_PREFIX = "$tag";
-
     private static final String TAG_CONTAINER_ID_DELIMITER = ".";
 
     private final AssetService assetService;
-
     private final AssetMetadataService assetMetadataService;
-
     private final TagService tagService;
-
     private final ObjectProperty<AssetMetadata> metadataProperty = new SimpleObjectProperty<>();
 
     @FXML
@@ -81,21 +79,31 @@ public class MetadataController implements AssetSelectionListener {
     private FlowPane tagsPane;
 
     public MetadataController(ApplicationContext context) {
+
         assetService = context.get(AssetService.class);
         assetMetadataService = context.get(AssetMetadataService.class);
         tagService = context.get(TagService.class);
-    }
 
-    @FXML
-    private void initialize() {
-        metadataContainer.disableProperty().bind(Bindings.isNull(metadataProperty));
+        EventService eventService = context.get(EventService.class);
+        eventService.subscribe(DesktopEvents.ASSET_ITEM_SELECTED, this::onItemSelected);
+        eventService.subscribe(DesktopEvents.ASSET_ITEM_DESELECTED, this::onItemDeselected);
     }
 
     @Override
-    public void onAssetSelected(String id) {
+    public String getId() {
+        return CONTROLLER_ID;
+    }
 
-        Asset asset = assetService.load(id);
-        idLabel.setText(id);
+    @FXML
+    @Override
+    public void initialize() {
+        metadataContainer.disableProperty().bind(Bindings.isNull(metadataProperty));
+    }
+
+    private void onItemSelected(AssetItem item) {
+
+        Asset asset = assetService.load(item.getAssetId());
+        idLabel.setText(item.getAssetId());
         nameLabel.setText(asset.getName());
         extensionLabel.setText(asset.getExtension());
         pathLabel.setText(asset.getPath());
@@ -106,7 +114,7 @@ public class MetadataController implements AssetSelectionListener {
             resolutionLabel.setText(resolution);
         }
 
-        AssetMetadata metadata = assetMetadataService.load(id);
+        AssetMetadata metadata = assetMetadataService.load(item.getAssetId());
         metadataProperty.set(metadata);
         displayNameField.setText(metadata.getAssetDisplayName());
         descriptionArea.setText(metadata.getDescription());
@@ -126,8 +134,7 @@ public class MetadataController implements AssetSelectionListener {
         }
     }
 
-    @Override
-    public void onClearSelection() {
+    private void onItemDeselected() {
         metadataProperty.set(null);
         idLabel.setText(null);
         nameLabel.setText(null);

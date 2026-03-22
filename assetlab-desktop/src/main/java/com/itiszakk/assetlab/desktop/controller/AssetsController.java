@@ -1,15 +1,17 @@
 package com.itiszakk.assetlab.desktop.controller;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import com.itiszakk.assetlab.core.configuration.CoreEvents;
 import com.itiszakk.assetlab.core.service.AssetMetadataService;
 import com.itiszakk.assetlab.core.service.AssetService;
-import com.itiszakk.assetlab.core.service.LifecycleListener;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
-import com.itiszakk.assetlab.desktop.controller.listener.AssetSelectionListener;
+import com.itiszakk.assetlab.desktop.configuration.DesktopEvents;
 import com.itiszakk.assetlab.desktop.type.AssetItem;
+import com.itiszakk.assetlab.desktop.type.Controller;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
+import com.itiszakk.assetlab.system.service.EventService;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
 import javafx.application.Platform;
@@ -23,17 +25,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 
-public class AssetsController implements LifecycleListener<AssetMetadata> {
+public class AssetsController implements Controller {
 
+    private static final String CONTROLLER_ID = "assets";
     private static final String CONTEXT_MENU_ITEM_DELETE = "assets.context_menu.item.delete";
 
+    private final EventService eventService;
     private final AssetService assetService;
-
     private final AssetMetadataService assetMetadataService;
-
     private final ObservableList<AssetItem> assetItems = FXCollections.observableArrayList();
-
-    private final List<AssetSelectionListener> selectionListeners = new ArrayList<>();
 
     @FXML
     private Label countLabel;
@@ -42,17 +42,22 @@ public class AssetsController implements LifecycleListener<AssetMetadata> {
     private ListView<AssetItem> assetsView;
 
     public AssetsController(ApplicationContext context) {
+        eventService = context.get(EventService.class);
         assetService = context.get(AssetService.class);
         assetMetadataService = context.get(AssetMetadataService.class);
-        assetMetadataService.register(this);
+
+        eventService.subscribe(CoreEvents.ASSETS_METADATA_SAVED, this::onMetadataSaved);
+        eventService.subscribe(CoreEvents.ASSETS_METADATA_DELETED, this::onMetadataDeleted);
     }
 
-    public void register(AssetSelectionListener listener) {
-        selectionListeners.add(listener);
+    @Override
+    public String getId() {
+        return CONTROLLER_ID;
     }
 
     @FXML
-    private void initialize() {
+    @Override
+    public void initialize() {
 
         countLabel.textProperty().bind(Bindings.concat(" (", Bindings.size(assetItems), ")"));
 
@@ -85,14 +90,13 @@ public class AssetsController implements LifecycleListener<AssetMetadata> {
 
     private void notifySelectionListeners(AssetItem item) {
         if (item == null) {
-            selectionListeners.forEach(AssetSelectionListener::onClearSelection);
+            eventService.send(DesktopEvents.ASSET_ITEM_DESELECTED);
         } else {
-            selectionListeners.forEach(listener -> listener.onAssetSelected(item.getAssetId()));
+            eventService.send(DesktopEvents.ASSET_ITEM_SELECTED, item);
         }
     }
 
-    @Override
-    public void afterSaveAll(List<AssetMetadata> metadata) {
+    public void onMetadataSaved(Collection<AssetMetadata> metadata) {
         Platform.runLater(() -> {
 
             List<AssetItem> items = metadata.stream()
@@ -104,13 +108,7 @@ public class AssetsController implements LifecycleListener<AssetMetadata> {
         });
     }
 
-    @Override
-    public void afterDelete(AssetMetadata metadata) {
-        Platform.runLater(() -> assetItems.remove(createAssetItem(metadata)));
-    }
-
-    @Override
-    public void afterDeleteAll(List<AssetMetadata> metadata) {
+    public void onMetadataDeleted(Collection<AssetMetadata> metadata) {
         Platform.runLater(() -> {
 
             List<AssetItem> items = metadata.stream()

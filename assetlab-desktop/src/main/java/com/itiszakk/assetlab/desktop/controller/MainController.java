@@ -15,9 +15,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.itiszakk.assetlab.core.service.AssetMetadataService;
 import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.type.Asset;
-import com.itiszakk.assetlab.core.type.Asset.AssetBuilder;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
-import com.itiszakk.assetlab.desktop.service.StageDefinition;
+import com.itiszakk.assetlab.desktop.type.StageController;
 import com.itiszakk.assetlab.desktop.type.StageOptions;
 import com.itiszakk.assetlab.desktop.util.FileUtils;
 import com.itiszakk.assetlab.desktop.util.StageUtils;
@@ -29,18 +28,14 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 
-public class MainController implements StageDefinition {
+public class MainController implements StageController {
 
-    private static final String STAGE_ID = "main";
-
+    private static final String CONTROLLER_ID = "main";
     private static final String STAGE_TITLE = "main.title";
-
     private static final int STAGE_MIN_WIDTH = 800;
-
     private static final int STAGE_MIN_HEIGHT = 600;
 
     private static final Map<StageOptions, Object> STAGE_OPTIONS = new EnumMap<>(StageOptions.class);
-
     static {
         STAGE_OPTIONS.put(StageOptions.TITLE, TextUtils.getText(STAGE_TITLE));
         STAGE_OPTIONS.put(StageOptions.MIN_WIDTH, STAGE_MIN_WIDTH);
@@ -49,7 +44,6 @@ public class MainController implements StageDefinition {
     }
 
     private final AssetService assetService;
-
     private final AssetMetadataService assetMetadataService;
 
     @FXML
@@ -65,16 +59,17 @@ public class MainController implements StageDefinition {
 
     @Override
     public String getId() {
-        return STAGE_ID;
+        return CONTROLLER_ID;
     }
 
     @Override
-    public Map<StageOptions, Object> getProperties() {
+    public Map<StageOptions, Object> getOptions() {
         return STAGE_OPTIONS;
     }
 
     @FXML
-    private void initialize() {
+    @Override
+    public void initialize() {
         settingsMenuItem.setOnAction(event -> StageUtils.show(SettingsController.class));
         aboutMenuItem.setOnAction(event -> StageUtils.show(AboutController.class));
     }
@@ -141,7 +136,7 @@ public class MainController implements StageDefinition {
             String filename = split.getLeft();
             String extension = split.getRight();
 
-            AssetBuilder builder = Asset.builder()
+            Asset.Builder builder = Asset.builder()
                     .id(id)
                     .name(filename)
                     .extension(extension)

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 
-public interface AssetMetadataService extends LifecycleListenerRegistry<AssetMetadata> {
+public interface AssetMetadataService {
 
     AssetMetadata load(String id);
 

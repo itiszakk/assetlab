@@ -1,20 +1,18 @@
-package com.itiszakk.assetlab.desktop.type;
+package com.itiszakk.assetlab.desktop.configuration;
 
 import java.util.Collection;
 import java.util.List;
 
-import com.itiszakk.assetlab.system.type.PropertyDefinition;
+import com.itiszakk.assetlab.desktop.type.DesktopTheme;
+import com.itiszakk.assetlab.system.type.property.PropertyDefinition;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DesktopProperties {
 
     private static final String THEME_PROPERTY_ID = "desktop.property.theme";
-
     private static final String THEME_PROPERTY_DESCRIPTION = "desktop.property.theme.description";
+
+    private DesktopProperties() {}
 
     public static final PropertyDefinition<DesktopTheme> THEME = PropertyDefinition.builder(DesktopTheme.class)
             .id(THEME_PROPERTY_ID)

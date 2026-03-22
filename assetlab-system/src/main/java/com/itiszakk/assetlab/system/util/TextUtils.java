@@ -2,13 +2,11 @@ package com.itiszakk.assetlab.system.util;
 
 import com.itiszakk.assetlab.system.service.TextService;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TextUtils {
+public final class TextUtils {
 
     private static TextService textService;
+
+    private TextUtils() {}
 
     public static void init(TextService textService) {
         TextUtils.textService = textService;

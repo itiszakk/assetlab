@@ -15,11 +15,8 @@ import com.itiszakk.assetlab.system.service.impl.TextServiceImpl;
 public class ModuleManager {
 
     private final Map<String, Module> modules = new HashMap<>();
-
     private final ApplicationContext context;
-
     private final TextService textService;
-
     private final PropertyService propertyService;
 
     public ModuleManager(ApplicationContext context) {

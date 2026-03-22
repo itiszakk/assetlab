@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.itiszakk.assetlab.core.type.Asset;
 
-public interface AssetService extends LifecycleListenerRegistry<Asset> {
+public interface AssetService {
 
     Asset load(String id);
 

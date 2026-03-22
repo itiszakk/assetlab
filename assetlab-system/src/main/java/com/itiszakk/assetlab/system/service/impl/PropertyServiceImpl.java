@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.itiszakk.assetlab.system.service.PropertyService;
-import com.itiszakk.assetlab.system.type.PropertyCategory;
-import com.itiszakk.assetlab.system.type.PropertyDefinition;
+import com.itiszakk.assetlab.system.type.property.PropertyCategory;
+import com.itiszakk.assetlab.system.type.property.PropertyDefinition;
 
 public class PropertyServiceImpl implements PropertyService {
 

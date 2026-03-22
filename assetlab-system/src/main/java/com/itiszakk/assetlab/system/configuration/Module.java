@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import com.itiszakk.assetlab.system.type.PropertyDefinition;
+import com.itiszakk.assetlab.system.type.property.PropertyDefinition;
 
 public interface Module {
 

@@ -1,15 +1,13 @@
-package com.itiszakk.assetlab.desktop.type;
+package com.itiszakk.assetlab.desktop.configuration;
 
-import com.itiszakk.assetlab.system.type.PropertyCategory;
+import com.itiszakk.assetlab.system.type.property.PropertyCategory;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DesktopPropertyCategories {
 
     private static final String APPEARANCE_CATEGORY_ID = "desktop.property.category.appearance";
+
+    private DesktopPropertyCategories() {}
 
     public static final PropertyCategory APPEARANCE = PropertyCategory.builder()
             .id(APPEARANCE_CATEGORY_ID)

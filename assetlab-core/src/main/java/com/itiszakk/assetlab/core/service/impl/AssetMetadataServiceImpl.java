@@ -1,17 +1,24 @@
 package com.itiszakk.assetlab.core.service.impl;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.itiszakk.assetlab.core.configuration.CoreEvents;
 import com.itiszakk.assetlab.core.service.AssetMetadataService;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
+import com.itiszakk.assetlab.system.service.EventService;
 
-public class AssetMetadataServiceImpl
-        extends AbstractLifecycleService<AssetMetadata>
-        implements AssetMetadataService {
+public class AssetMetadataServiceImpl implements AssetMetadataService {
 
     private final Map<String, AssetMetadata> storage = new HashMap<>();
+    private final EventService eventService;
+
+    public AssetMetadataServiceImpl(ApplicationContext context) {
+        this.eventService = context.get(EventService.class);
+    }
 
     @Override
     public AssetMetadata load(String id) {
@@ -21,19 +28,19 @@ public class AssetMetadataServiceImpl
     @Override
     public void save(AssetMetadata metadata) {
         storage.put(metadata.getAssetId(), metadata);
-        notifyAfterSave(metadata);
+        eventService.send(CoreEvents.ASSETS_METADATA_SAVED, Collections.singletonList(metadata));
     }
 
     @Override
     public void saveAll(List<AssetMetadata> metadata) {
         metadata.forEach(m -> storage.put(m.getAssetId(), m));
-        notifyAfterSaveAll(metadata);
+        eventService.send(CoreEvents.ASSETS_METADATA_SAVED, metadata);
     }
 
     @Override
     public void delete(String id) {
         AssetMetadata removed = storage.remove(id);
-        notifyAfterDelete(removed);
+        eventService.send(CoreEvents.ASSETS_METADATA_DELETED, Collections.singletonList(removed));
     }
 
     @Override
@@ -43,6 +50,6 @@ public class AssetMetadataServiceImpl
                 .map(storage::remove)
                 .toList();
 
-        notifyAfterDeleteAll(removed);
+        eventService.send(CoreEvents.ASSETS_METADATA_DELETED, removed);
     }
 }

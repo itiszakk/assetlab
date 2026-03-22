@@ -8,10 +8,17 @@ import java.util.Map;
 
 import com.itiszakk.assetlab.core.service.TagService;
 import com.itiszakk.assetlab.core.type.Tag;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
+import com.itiszakk.assetlab.system.service.EventService;
 
 public class TagServiceImpl implements TagService {
 
     private final Map<String, Map<String, Tag>> storage = new HashMap<>();
+    private final EventService eventService;
+
+    public TagServiceImpl(ApplicationContext context) {
+        this.eventService = context.get(EventService.class);
+    }
 
     @Override
     public List<Tag> load(String id) {

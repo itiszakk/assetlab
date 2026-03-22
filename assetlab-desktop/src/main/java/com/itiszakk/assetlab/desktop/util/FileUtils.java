@@ -18,7 +18,7 @@ import com.itiszakk.assetlab.system.util.TextUtils;
 
 import javafx.stage.FileChooser;
 
-public class FileUtils {
+public final class FileUtils {
 
     private static final Set<String> IMAGE_EXTENSIONS = Set.of(
             "jpg",
@@ -30,16 +30,11 @@ public class FileUtils {
     );
 
     private static final Preferences PREFERENCES = Preferences.userNodeForPackage(MainController.class);
-
     private static final String LAST_DIRECTION_KEY = "last_directory";
-
     private static final String FILE_CHOOSER_TITLE = "utils.file_chooser.title";
-
     private static final String DOT = ".";
 
-    private FileUtils() {
-
-    }
+    private FileUtils() {}
 
     public static List<File> load() {
 
