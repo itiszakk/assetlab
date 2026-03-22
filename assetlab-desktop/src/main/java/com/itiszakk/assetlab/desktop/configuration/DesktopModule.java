@@ -1,89 +1,55 @@
 package com.itiszakk.assetlab.desktop.configuration;
 
-import javax.inject.Singleton;
+import java.util.Collection;
+import java.util.List;
 
-import com.itiszakk.assetlab.core.service.AssetMetadataService;
-import com.itiszakk.assetlab.core.service.AssetService;
-import com.itiszakk.assetlab.core.service.TagService;
-import com.itiszakk.assetlab.desktop.controller.AboutController;
-import com.itiszakk.assetlab.desktop.controller.AssetsController;
-import com.itiszakk.assetlab.desktop.controller.MainController;
-import com.itiszakk.assetlab.desktop.controller.MetadataController;
-import com.itiszakk.assetlab.desktop.controller.PreviewController;
-import com.itiszakk.assetlab.desktop.controller.SettingsController;
+import com.itiszakk.assetlab.core.configuration.CoreModule;
 import com.itiszakk.assetlab.desktop.service.StageService;
 import com.itiszakk.assetlab.desktop.service.impl.StageServiceImpl;
-import com.itiszakk.assetlab.system.service.ModuleDefinition;
-import com.itiszakk.assetlab.system.service.PropertyService;
+import com.itiszakk.assetlab.desktop.type.DesktopProperties;
+import com.itiszakk.assetlab.desktop.util.StageUtils;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
+import com.itiszakk.assetlab.system.configuration.Module;
+import com.itiszakk.assetlab.system.configuration.SystemModule;
+import com.itiszakk.assetlab.system.type.PropertyDefinition;
 
-import dagger.Binds;
-import dagger.Module;
-import dagger.Provides;
-import dagger.multibindings.IntoMap;
-import dagger.multibindings.StringKey;
+public class DesktopModule implements Module {
 
-@Module
-public interface DesktopModule {
+    public static final String MODULE_ID = "com.itiszakk.assetlab.desktop";
 
-    @Binds
-    @IntoMap
-    @StringKey(DesktopModuleDefinition.MODULE_ID)
-    ModuleDefinition bindDesktopModuleDefinition(DesktopModuleDefinition moduleDefinition);
+    public static final String TEXT_BUNDLE = "desktop_text";
 
-    @Binds
-    @Singleton
-    StageService bindStageService(StageServiceImpl impl);
+    private static final List<String> DEPENDENCIES = List.of(
+            SystemModule.MODULE_ID,
+            CoreModule.MODULE_ID
+    );
 
-    @Provides
-    @Singleton
-    static MainController provideMainController(StageService stageService,
-                                                AssetService assetService,
-                                                AssetMetadataService assetMetadataService) {
-        MainController controller = new MainController(assetService, assetMetadataService);
-        stageService.register(controller);
-        return controller;
+    @Override
+    public String getId() {
+        return MODULE_ID;
     }
 
-    @Provides
-    @Singleton
-    static AssetsController provideAssetController(AssetService assetService,
-                                                   AssetMetadataService assetMetadataService) {
-        return new AssetsController(assetService, assetMetadataService);
+    @Override
+    public List<String> getDependencies() {
+        return DEPENDENCIES;
     }
 
-    @Provides
-    @Singleton
-    static PreviewController providePreviewController(AssetsController assetsController,
-                                                      AssetService assetService) {
-        PreviewController controller = new PreviewController(assetService);
-        assetsController.register(controller);
-        return controller;
+    @Override
+    public Collection<PropertyDefinition<?>> getProperties() {
+        return DesktopProperties.PROPERTY_DEFINITIONS;
     }
 
-    @Provides
-    @Singleton
-    static MetadataController provideMetadataController(AssetsController assetsController,
-                                                        AssetService assetService,
-                                                        AssetMetadataService assetMetadataService,
-                                                        TagService tagService) {
-        MetadataController controller = new MetadataController(assetService, assetMetadataService, tagService);
-        assetsController.register(controller);
-        return controller;
+    @Override
+    public String getTextBundle() {
+        return TEXT_BUNDLE;
     }
 
-    @Provides
-    @Singleton
-    static SettingsController provideSettingsController(StageService stageService, PropertyService propertyService) {
-        SettingsController controller = new SettingsController(propertyService);
-        stageService.register(controller);
-        return controller;
-    }
+    @Override
+    public void init(ApplicationContext context) {
 
-    @Provides
-    @Singleton
-    static AboutController provideAboutController(StageService stageService) {
-        AboutController controller = new AboutController();
-        stageService.register(controller);
-        return controller;
+        StageService stageService = new StageServiceImpl();
+        context.register(StageService.class, stageService);
+
+        StageUtils.init(context, stageService);
     }
 }

@@ -5,16 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.itiszakk.assetlab.system.service.TextService;
 import com.itiszakk.assetlab.system.util.ResourceUtils;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(onConstructor_ = @Inject)
 public class TextServiceImpl implements TextService {
 
     private final List<ResourceBundle> bundles = new ArrayList<>();

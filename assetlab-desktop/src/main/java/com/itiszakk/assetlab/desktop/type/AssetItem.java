@@ -1,4 +1,4 @@
-package com.itiszakk.assetlab.desktop.type.item;
+package com.itiszakk.assetlab.desktop.type;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

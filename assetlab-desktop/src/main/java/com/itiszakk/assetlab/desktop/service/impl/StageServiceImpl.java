@@ -6,14 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.inject.Inject;
-
 import org.apache.commons.collections4.MapUtils;
 
-import com.itiszakk.assetlab.desktop.configuration.DesktopModuleDefinition;
+import com.itiszakk.assetlab.desktop.configuration.DesktopModule;
 import com.itiszakk.assetlab.desktop.service.StageDefinition;
 import com.itiszakk.assetlab.desktop.service.StageService;
-import com.itiszakk.assetlab.desktop.type.StageProperty;
+import com.itiszakk.assetlab.desktop.type.StageOptions;
 import com.itiszakk.assetlab.desktop.util.ControllerFactory;
 import com.itiszakk.assetlab.desktop.util.StageUtils;
 import com.itiszakk.assetlab.system.util.ResourceUtils;
@@ -22,9 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(onConstructor_ = @Inject)
 public class StageServiceImpl implements StageService {
 
     private static final String DIRECTORY_DELIMITER = "/";
@@ -41,7 +37,7 @@ public class StageServiceImpl implements StageService {
     }
 
     @Override
-    public void show(Class<? extends StageDefinition> stageClass, ControllerFactory controllerFactory) {
+    public void show(Class<? extends StageDefinition> stageClass, ControllerFactory factory) {
 
         StageDefinition stageDefinition = stages.get(stageClass);
         if (stageDefinition == null) {
@@ -51,7 +47,7 @@ public class StageServiceImpl implements StageService {
 
         try {
             FXMLLoader loader = new FXMLLoader(getStageResource(stageDefinition), getDesktopResourceBundle());
-            loader.setControllerFactory(controllerFactory);
+            loader.setControllerFactory(factory);
 
             Stage stage = buildStage(loader.load(), stageDefinition);
             stage.show();
@@ -74,20 +70,20 @@ public class StageServiceImpl implements StageService {
     }
 
     private static ResourceBundle getDesktopResourceBundle() {
-        return ResourceUtils.loadBundle(DesktopModuleDefinition.TEXT_BUNDLE, StageUtils.class.getClassLoader());
+        return ResourceUtils.loadBundle(DesktopModule.TEXT_BUNDLE, StageUtils.class.getClassLoader());
     }
 
     private static Stage buildStage(Parent root, StageDefinition stageDefinition) {
 
-        Map<StageProperty, Object> properties = stageDefinition.getProperties();
+        Map<StageOptions, Object> properties = stageDefinition.getProperties();
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
 
-        stage.setTitle(MapUtils.getString(properties, StageProperty.TITLE));
-        stage.setMinWidth(MapUtils.getDoubleValue(properties, StageProperty.MIN_WIDTH));
-        stage.setMinHeight(MapUtils.getDoubleValue(properties, StageProperty.MIN_HEIGHT));
-        stage.setMaximized(MapUtils.getBooleanValue(properties, StageProperty.MAXIMIZED));
+        stage.setTitle(MapUtils.getString(properties, StageOptions.TITLE));
+        stage.setMinWidth(MapUtils.getDoubleValue(properties, StageOptions.MIN_WIDTH));
+        stage.setMinHeight(MapUtils.getDoubleValue(properties, StageOptions.MIN_HEIGHT));
+        stage.setMaximized(MapUtils.getBooleanValue(properties, StageOptions.MAXIMIZED));
 
         return stage;
     }

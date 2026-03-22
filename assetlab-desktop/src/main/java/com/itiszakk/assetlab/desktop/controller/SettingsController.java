@@ -4,11 +4,10 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import com.itiszakk.assetlab.desktop.service.StageDefinition;
-import com.itiszakk.assetlab.desktop.type.StageProperty;
+import com.itiszakk.assetlab.desktop.type.StageOptions;
 import com.itiszakk.assetlab.system.service.PropertyService;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 import com.itiszakk.assetlab.system.type.PropertyCategory;
 import com.itiszakk.assetlab.system.type.PropertyDefinition;
 import com.itiszakk.assetlab.system.util.TextUtils;
@@ -32,12 +31,12 @@ public class SettingsController implements StageDefinition {
 
     private static final int STAGE_MIN_HEIGHT = 600;
 
-    private static final Map<StageProperty, Object> STAGE_PROPERTIES = new EnumMap<>(StageProperty.class);
+    private static final Map<StageOptions, Object> STAGE_PROPERTIES = new EnumMap<>(StageOptions.class);
 
     static {
-        STAGE_PROPERTIES.put(StageProperty.TITLE, TextUtils.getText(STAGE_TITLE));
-        STAGE_PROPERTIES.put(StageProperty.MIN_WIDTH, STAGE_MIN_WIDTH);
-        STAGE_PROPERTIES.put(StageProperty.MIN_HEIGHT, STAGE_MIN_HEIGHT);
+        STAGE_PROPERTIES.put(StageOptions.TITLE, TextUtils.getText(STAGE_TITLE));
+        STAGE_PROPERTIES.put(StageOptions.MIN_WIDTH, STAGE_MIN_WIDTH);
+        STAGE_PROPERTIES.put(StageOptions.MIN_HEIGHT, STAGE_MIN_HEIGHT);
     }
 
     private final PropertyService propertyService;
@@ -56,9 +55,8 @@ public class SettingsController implements StageDefinition {
     @FXML
     private VBox settingsContainer;
 
-    @Inject
-    public SettingsController(PropertyService propertyService) {
-        this.propertyService = propertyService;
+    public SettingsController(ApplicationContext context) {
+        propertyService = context.get(PropertyService.class);
     }
 
     @Override
@@ -67,7 +65,7 @@ public class SettingsController implements StageDefinition {
     }
 
     @Override
-    public Map<StageProperty, Object> getProperties() {
+    public Map<StageOptions, Object> getProperties() {
         return STAGE_PROPERTIES;
     }
 

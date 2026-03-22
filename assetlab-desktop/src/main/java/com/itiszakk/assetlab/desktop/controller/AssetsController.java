@@ -3,14 +3,13 @@ package com.itiszakk.assetlab.desktop.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import com.itiszakk.assetlab.core.service.AssetMetadataService;
 import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.service.LifecycleListener;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 import com.itiszakk.assetlab.desktop.controller.listener.AssetSelectionListener;
-import com.itiszakk.assetlab.desktop.type.item.AssetItem;
+import com.itiszakk.assetlab.desktop.type.AssetItem;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
 import javafx.application.Platform;
@@ -42,10 +41,9 @@ public class AssetsController implements LifecycleListener<AssetMetadata> {
     @FXML
     private ListView<AssetItem> assetsView;
 
-    @Inject
-    public AssetsController(AssetService assetService, AssetMetadataService assetMetadataService) {
-        this.assetService = assetService;
-        this.assetMetadataService = assetMetadataService;
+    public AssetsController(ApplicationContext context) {
+        assetService = context.get(AssetService.class);
+        assetMetadataService = context.get(AssetMetadataService.class);
         assetMetadataService.register(this);
     }
 

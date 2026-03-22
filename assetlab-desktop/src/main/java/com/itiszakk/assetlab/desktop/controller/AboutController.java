@@ -3,18 +3,14 @@ package com.itiszakk.assetlab.desktop.controller;
 import java.util.EnumMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import com.itiszakk.assetlab.desktop.service.StageDefinition;
-import com.itiszakk.assetlab.desktop.type.StageProperty;
+import com.itiszakk.assetlab.desktop.type.StageOptions;
 import com.itiszakk.assetlab.system.BuildInfo;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(onConstructor_ = @Inject)
 public class AboutController implements StageDefinition {
 
     private static final String BUILD_TITLE = "about.build.title";
@@ -29,12 +25,12 @@ public class AboutController implements StageDefinition {
 
     private static final int STAGE_MIN_HEIGHT = 300;
 
-    private static final Map<StageProperty, Object> STAGE_PROPERTIES = new EnumMap<>(StageProperty.class);
+    private static final Map<StageOptions, Object> STAGE_PROPERTIES = new EnumMap<>(StageOptions.class);
 
     static {
-        STAGE_PROPERTIES.put(StageProperty.TITLE, TextUtils.getText(STAGE_TITLE));
-        STAGE_PROPERTIES.put(StageProperty.MIN_WIDTH, STAGE_MIN_WIDTH);
-        STAGE_PROPERTIES.put(StageProperty.MIN_HEIGHT, STAGE_MIN_HEIGHT);
+        STAGE_PROPERTIES.put(StageOptions.TITLE, TextUtils.getText(STAGE_TITLE));
+        STAGE_PROPERTIES.put(StageOptions.MIN_WIDTH, STAGE_MIN_WIDTH);
+        STAGE_PROPERTIES.put(StageOptions.MIN_HEIGHT, STAGE_MIN_HEIGHT);
     }
 
     @FXML
@@ -55,7 +51,7 @@ public class AboutController implements StageDefinition {
     }
 
     @Override
-    public Map<StageProperty, Object> getProperties() {
+    public Map<StageOptions, Object> getProperties() {
         return STAGE_PROPERTIES;
     }
 }

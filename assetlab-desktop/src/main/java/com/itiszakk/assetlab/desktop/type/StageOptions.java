@@ -3,7 +3,8 @@ package com.itiszakk.assetlab.desktop.type;
 import lombok.Getter;
 
 @Getter
-public enum StageProperty {
+public enum StageOptions {
+
     TITLE("title"),
     MIN_WIDTH("min.width"),
     MIN_HEIGHT("min.height"),
@@ -11,7 +12,7 @@ public enum StageProperty {
 
     private final String name;
 
-    StageProperty(String name) {
+    StageOptions(String name) {
         this.name = name;
     }
 }

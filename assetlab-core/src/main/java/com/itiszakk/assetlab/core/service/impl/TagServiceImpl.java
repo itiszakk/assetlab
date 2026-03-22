@@ -6,14 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import com.itiszakk.assetlab.core.service.TagService;
 import com.itiszakk.assetlab.core.type.Tag;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(onConstructor_ = @Inject)
 public class TagServiceImpl implements TagService {
 
     private final Map<String, Map<String, Tag>> storage = new HashMap<>();

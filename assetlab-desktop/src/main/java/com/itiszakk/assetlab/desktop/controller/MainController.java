@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -20,9 +18,10 @@ import com.itiszakk.assetlab.core.type.Asset;
 import com.itiszakk.assetlab.core.type.Asset.AssetBuilder;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 import com.itiszakk.assetlab.desktop.service.StageDefinition;
-import com.itiszakk.assetlab.desktop.type.StageProperty;
+import com.itiszakk.assetlab.desktop.type.StageOptions;
 import com.itiszakk.assetlab.desktop.util.FileUtils;
 import com.itiszakk.assetlab.desktop.util.StageUtils;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
 import javafx.application.Platform;
@@ -40,13 +39,13 @@ public class MainController implements StageDefinition {
 
     private static final int STAGE_MIN_HEIGHT = 600;
 
-    private static final Map<StageProperty, Object> STAGE_PROPERTIES = new EnumMap<>(StageProperty.class);
+    private static final Map<StageOptions, Object> STAGE_OPTIONS = new EnumMap<>(StageOptions.class);
 
     static {
-        STAGE_PROPERTIES.put(StageProperty.TITLE, TextUtils.getText(STAGE_TITLE));
-        STAGE_PROPERTIES.put(StageProperty.MIN_WIDTH, STAGE_MIN_WIDTH);
-        STAGE_PROPERTIES.put(StageProperty.MIN_HEIGHT, STAGE_MIN_HEIGHT);
-        STAGE_PROPERTIES.put(StageProperty.MAXIMIZED, true);
+        STAGE_OPTIONS.put(StageOptions.TITLE, TextUtils.getText(STAGE_TITLE));
+        STAGE_OPTIONS.put(StageOptions.MIN_WIDTH, STAGE_MIN_WIDTH);
+        STAGE_OPTIONS.put(StageOptions.MIN_HEIGHT, STAGE_MIN_HEIGHT);
+        STAGE_OPTIONS.put(StageOptions.MAXIMIZED, true);
     }
 
     private final AssetService assetService;
@@ -59,10 +58,9 @@ public class MainController implements StageDefinition {
     @FXML
     private MenuItem aboutMenuItem;
 
-    @Inject
-    public MainController(AssetService assetService, AssetMetadataService assetMetadataService) {
-        this.assetService = assetService;
-        this.assetMetadataService = assetMetadataService;
+    public MainController(ApplicationContext context) {
+        assetService = context.get(AssetService.class);
+        assetMetadataService = context.get(AssetMetadataService.class);
     }
 
     @Override
@@ -71,8 +69,8 @@ public class MainController implements StageDefinition {
     }
 
     @Override
-    public Map<StageProperty, Object> getProperties() {
-        return STAGE_PROPERTIES;
+    public Map<StageOptions, Object> getProperties() {
+        return STAGE_OPTIONS;
     }
 
     @FXML

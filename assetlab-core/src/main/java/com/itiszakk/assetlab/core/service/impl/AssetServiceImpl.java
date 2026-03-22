@@ -5,14 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.type.Asset;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(onConstructor_ = @Inject)
 public class AssetServiceImpl
         extends AbstractLifecycleService<Asset>
         implements AssetService {

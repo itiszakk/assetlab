@@ -2,11 +2,11 @@ package com.itiszakk.assetlab.desktop.service;
 
 import java.util.Map;
 
-import com.itiszakk.assetlab.desktop.type.StageProperty;
+import com.itiszakk.assetlab.desktop.type.StageOptions;
 
 public interface StageDefinition {
 
     String getId();
 
-    Map<StageProperty, Object> getProperties();
+    Map<StageOptions, Object> getProperties();
 }

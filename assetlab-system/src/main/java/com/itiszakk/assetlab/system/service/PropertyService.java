@@ -7,10 +7,9 @@ import java.util.Map;
 import com.itiszakk.assetlab.system.type.PropertyCategory;
 import com.itiszakk.assetlab.system.type.PropertyDefinition;
 
-@SuppressWarnings("java:S1452")
 public interface PropertyService {
 
-    void register(PropertyDefinition<?> properties);
+    void register(Collection<PropertyDefinition<?>> definitions);
 
     PropertyDefinition<?> getProperty(String id);
 

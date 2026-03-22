@@ -3,8 +3,6 @@ package com.itiszakk.assetlab.desktop.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,6 +14,7 @@ import com.itiszakk.assetlab.core.type.AssetMetadata;
 import com.itiszakk.assetlab.core.type.Tag;
 import com.itiszakk.assetlab.core.util.FormatUtils;
 import com.itiszakk.assetlab.desktop.controller.listener.AssetSelectionListener;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
@@ -81,13 +80,10 @@ public class MetadataController implements AssetSelectionListener {
     @FXML
     private FlowPane tagsPane;
 
-    @Inject
-    public MetadataController(AssetService assetService,
-                              AssetMetadataService assetMetadataService,
-                              TagService tagService) {
-        this.assetService = assetService;
-        this.assetMetadataService = assetMetadataService;
-        this.tagService = tagService;
+    public MetadataController(ApplicationContext context) {
+        assetService = context.get(AssetService.class);
+        assetMetadataService = context.get(AssetMetadataService.class);
+        tagService = context.get(TagService.class);
     }
 
     @FXML

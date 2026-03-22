@@ -1,8 +1,8 @@
 package com.itiszakk.assetlab.desktop.util;
 
-import com.itiszakk.assetlab.desktop.configuration.ApplicationComponent;
 import com.itiszakk.assetlab.desktop.service.StageDefinition;
 import com.itiszakk.assetlab.desktop.service.StageService;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -14,9 +14,9 @@ public class StageUtils {
 
     private static ControllerFactory controllerFactory;
 
-    public static void init(ApplicationComponent applicationComponent) {
-        StageUtils.stageService = applicationComponent.getStageService();
-        StageUtils.controllerFactory = new ControllerFactory(applicationComponent);
+    public static void init(ApplicationContext context, StageService stageService) {
+        StageUtils.stageService = stageService;
+        StageUtils.controllerFactory = new ControllerFactory(context, stageService);
     }
 
     public static void show(Class<? extends StageDefinition> stageClass) {

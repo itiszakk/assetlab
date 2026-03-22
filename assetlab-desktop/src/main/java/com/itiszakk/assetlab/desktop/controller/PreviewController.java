@@ -4,11 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import javax.inject.Inject;
-
 import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.type.Asset;
 import com.itiszakk.assetlab.desktop.controller.listener.AssetSelectionListener;
+import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -29,9 +28,8 @@ public class PreviewController implements AssetSelectionListener {
     @FXML
     private ImageView preview;
 
-    @Inject
-    public PreviewController(AssetService assetService) {
-        this.assetService = assetService;
+    public PreviewController(ApplicationContext context) {
+        assetService = context.get(AssetService.class);
     }
 
     @FXML

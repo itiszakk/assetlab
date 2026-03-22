@@ -4,14 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import com.itiszakk.assetlab.core.service.AssetMetadataService;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(onConstructor_ = @Inject)
 public class AssetMetadataServiceImpl
         extends AbstractLifecycleService<AssetMetadata>
         implements AssetMetadataService {

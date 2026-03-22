@@ -1,37 +1,35 @@
 package com.itiszakk.assetlab.system.configuration;
 
-import javax.inject.Singleton;
+import java.util.Collection;
 
-import com.itiszakk.assetlab.system.service.ModuleDefinition;
-import com.itiszakk.assetlab.system.service.ModuleService;
-import com.itiszakk.assetlab.system.service.PropertyService;
 import com.itiszakk.assetlab.system.service.TextService;
-import com.itiszakk.assetlab.system.service.impl.ModuleServiceImpl;
-import com.itiszakk.assetlab.system.service.impl.PropertyServiceImpl;
-import com.itiszakk.assetlab.system.service.impl.TextServiceImpl;
+import com.itiszakk.assetlab.system.type.PropertyDefinition;
+import com.itiszakk.assetlab.system.type.SystemProperties;
+import com.itiszakk.assetlab.system.util.TextUtils;
 
-import dagger.Binds;
-import dagger.Module;
-import dagger.multibindings.IntoMap;
-import dagger.multibindings.StringKey;
+public class SystemModule implements Module {
 
-@Module
-public interface SystemModule {
+    public static final String MODULE_ID = "com.itiszakk.assetlab.system";
 
-    @Binds
-    @IntoMap
-    @StringKey(SystemModuleDefinition.MODULE_ID)
-    ModuleDefinition bindSystemModuleDefinition(SystemModuleDefinition impl);
+    private static final String TEXT_BUNDLE = "system_text";
 
-    @Binds
-    @Singleton
-    ModuleService bindModuleService(ModuleServiceImpl impl);
+    @Override
+    public String getId() {
+        return MODULE_ID;
+    }
 
-    @Binds
-    @Singleton
-    TextService bindTextService(TextServiceImpl impl);
+    @Override
+    public Collection<PropertyDefinition<?>> getProperties() {
+        return SystemProperties.PROPERTY_DEFINITIONS;
+    }
 
-    @Binds
-    @Singleton
-    PropertyService bindPropertyService(PropertyServiceImpl impl);
+    @Override
+    public String getTextBundle() {
+        return TEXT_BUNDLE;
+    }
+
+    @Override
+    public void init(ApplicationContext context) {
+        TextUtils.init(context.get(TextService.class));
+    }
 }
