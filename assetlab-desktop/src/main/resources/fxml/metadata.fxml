@@ -1,62 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<VBox fx:id="metadataContainer" styleClass="container" stylesheets="@/css/metadata.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itiszakk.assetlab.desktop.controller.MetadataController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="metadataContainer" styleClass="container" stylesheets="@/css/metadata.css"
+      xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.itiszakk.assetlab.desktop.controller.MetadataController">
     <HBox styleClass="actions-container">
-        <Button onAction="#saveMetadata" styleClass="save-metadata-button" text="%metadata.action.save" />
-        <Button onAction="#deleteAsset" styleClass="delete-asset-button" text="%metadata.action.delete" />
+        <Button onAction="#saveMetadata" styleClass="save-metadata-button"
+                text="%com.itiszakk.assetlab.desktop.metadata.action.save"/>
+        <Button onAction="#deleteAsset" styleClass="delete-asset-button"
+                text="%com.itiszakk.assetlab.desktop.metadata.action.delete"/>
     </HBox>
-    <Separator />
+    <Separator/>
     <ScrollPane styleClass="scroll-container" VBox.vgrow="ALWAYS">
         <VBox styleClass="info-container">
             <VBox>
-                <Label styleClass="title-label" text="%metadata.info.asset.title" />
+                <Label styleClass="title-label" text="%com.itiszakk.assetlab.desktop.metadata.info.asset.title"/>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.asset.field.id" />
-                    <Label fx:id="idLabel" />
+                    <Label styleClass="field-label" text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.id"/>
+                    <Label fx:id="idLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.asset.field.name" />
-                    <Label fx:id="nameLabel" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.name"/>
+                    <Label fx:id="nameLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.asset.field.extension" wrapText="true" />
-                    <Label fx:id="extensionLabel" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.extension" wrapText="true"/>
+                    <Label fx:id="extensionLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.asset.field.path" />
-                    <Label fx:id="pathLabel" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.path"/>
+                    <Label fx:id="pathLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.asset.field.resolution" />
-                    <Label fx:id="resolutionLabel" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.resolution"/>
+                    <Label fx:id="resolutionLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.asset.field.size" />
-                    <Label fx:id="sizeLabel" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.size"/>
+                    <Label fx:id="sizeLabel"/>
                 </VBox>
             </VBox>
-            <Separator />
+            <Separator/>
             <VBox>
-                <Label styleClass="title-label" text="%metadata.info.metadata.title" />
+                <Label styleClass="title-label" text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.title"/>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.metadata.field.display_name" />
-                    <TextField fx:id="displayNameField" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.field.display.name"/>
+                    <TextField fx:id="displayNameField"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.metadata.field.description" />
-                    <TextArea fx:id="descriptionArea" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.field.description"/>
+                    <TextArea fx:id="descriptionArea"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.metadata.field.timestamp" />
-                    <Label fx:id="timestampLabel" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.field.timestamp"/>
+                    <Label fx:id="timestampLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label" text="%metadata.info.metadata.field.tags" />
+                    <Label styleClass="field-label"
+                           text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.field.tags"/>
                     <FlowPane fx:id="tagsPane" styleClass="tags-container">
-                        <Button onAction="#upsertTag" text="+" />
+                        <Button onAction="#upsertTag" text="+"/>
                     </FlowPane>
                 </VBox>
             </VBox>

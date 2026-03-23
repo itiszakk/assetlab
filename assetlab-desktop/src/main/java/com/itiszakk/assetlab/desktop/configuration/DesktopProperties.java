@@ -9,8 +9,8 @@ import com.itiszakk.assetlab.system.util.TextUtils;
 
 public final class DesktopProperties {
 
-    private static final String THEME_PROPERTY_ID = "desktop.property.theme";
-    private static final String THEME_PROPERTY_DESCRIPTION = "desktop.property.theme.description";
+    private static final String THEME_PROPERTY_ID = DesktopModule.MODULE_ID + ".property.theme";
+    private static final String THEME_PROPERTY_DESCRIPTION = DesktopModule.MODULE_ID + ".property.theme.description";
 
     private DesktopProperties() {}
 

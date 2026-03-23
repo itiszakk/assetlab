@@ -3,6 +3,7 @@ package com.itiszakk.assetlab.desktop.controller;
 import java.util.EnumMap;
 import java.util.Map;
 
+import com.itiszakk.assetlab.desktop.configuration.DesktopModule;
 import com.itiszakk.assetlab.desktop.type.StageController;
 import com.itiszakk.assetlab.desktop.type.StageOptions;
 import com.itiszakk.assetlab.system.BuildInfo;
@@ -14,7 +15,11 @@ import javafx.scene.control.Label;
 public class AboutController implements StageController {
 
     private static final String CONTROLLER_ID = "about";
-    private static final String STAGE_TITLE = "about.title";
+
+    private static final String STAGE_TITLE = DesktopModule.MODULE_ID + ".about.title";
+    private static final String BUILD_TITLE = DesktopModule.MODULE_ID + ".about.build.title";
+    private static final String BUILD_TIMESTAMP = DesktopModule.MODULE_ID + ".about.build.timestamp";
+
     private static final int STAGE_MIN_WIDTH = 400;
     private static final int STAGE_MIN_HEIGHT = 300;
 
@@ -24,9 +29,6 @@ public class AboutController implements StageController {
         STAGE_PROPERTIES.put(StageOptions.MIN_WIDTH, STAGE_MIN_WIDTH);
         STAGE_PROPERTIES.put(StageOptions.MIN_HEIGHT, STAGE_MIN_HEIGHT);
     }
-
-    private static final String BUILD_TITLE = "about.build.title";
-    private static final String BUILD_TIMESTAMP = "about.build.timestamp";
 
     @FXML
     private Label buildTitle;

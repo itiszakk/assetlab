@@ -39,7 +39,7 @@ public class ModuleManager {
         for (Module module : ordered) {
 
             textService.register(module.getTextBundle(), module.getClass().getClassLoader());
-            propertyService.register(propertyService.getProperties());
+            propertyService.register(module.getProperties());
 
             module.init(context);
             module.start();

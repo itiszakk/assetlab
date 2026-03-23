@@ -8,8 +8,8 @@ import com.itiszakk.assetlab.system.util.TextUtils;
 
 public final class SystemProperties {
 
-    private static final String SYSTEM_LOCALE_PROPERTY_ID = "system.property.locale";
-    private static final String SYSTEM_LOCALE_PROPERTY_DESCRIPTION = "system.property.locale.description";
+    private static final String SYSTEM_LOCALE_PROPERTY_ID = SystemModule.MODULE_ID + ".property.locale";
+    private static final String SYSTEM_LOCALE_PROPERTY_DESCRIPTION = SystemModule.MODULE_ID + ".property.locale.description";
 
     private SystemProperties() {}
 

@@ -5,7 +5,7 @@ import com.itiszakk.assetlab.system.util.TextUtils;
 
 public final class DesktopPropertyCategories {
 
-    private static final String APPEARANCE_CATEGORY_ID = "desktop.property.category.appearance";
+    private static final String APPEARANCE_CATEGORY_ID = DesktopModule.MODULE_ID + ".property.category.appearance";
 
     private DesktopPropertyCategories() {}
 

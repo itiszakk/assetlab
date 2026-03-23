@@ -8,6 +8,7 @@ import com.itiszakk.assetlab.core.service.AssetMetadataService;
 import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 import com.itiszakk.assetlab.desktop.configuration.DesktopEvents;
+import com.itiszakk.assetlab.desktop.configuration.DesktopModule;
 import com.itiszakk.assetlab.desktop.type.AssetItem;
 import com.itiszakk.assetlab.desktop.type.Controller;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
@@ -28,7 +29,8 @@ import javafx.scene.control.SelectionMode;
 public class AssetsController implements Controller {
 
     private static final String CONTROLLER_ID = "assets";
-    private static final String CONTEXT_MENU_ITEM_DELETE = "assets.context_menu.item.delete";
+
+    private static final String CONTEXT_MENU_ITEM_DELETE = DesktopModule.MODULE_ID + ".assets.context.menu.item.delete";
 
     private final EventService eventService;
     private final AssetService assetService;

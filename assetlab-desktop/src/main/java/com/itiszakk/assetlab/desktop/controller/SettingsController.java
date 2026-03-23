@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import com.itiszakk.assetlab.desktop.configuration.DesktopModule;
 import com.itiszakk.assetlab.desktop.type.StageController;
 import com.itiszakk.assetlab.desktop.type.StageOptions;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
@@ -24,11 +25,8 @@ import javafx.scene.layout.VBox;
 public class SettingsController implements StageController {
 
     private static final String STAGE_ID = "settings";
-
-    private static final String STAGE_TITLE = "settings.title";
-
+    private static final String STAGE_TITLE = DesktopModule.MODULE_ID + ".settings.title";
     private static final int STAGE_MIN_WIDTH = 800;
-
     private static final int STAGE_MIN_HEIGHT = 600;
 
     private static final Map<StageOptions, Object> STAGE_PROPERTIES = new EnumMap<>(StageOptions.class);

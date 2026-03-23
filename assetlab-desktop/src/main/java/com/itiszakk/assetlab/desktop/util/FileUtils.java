@@ -13,6 +13,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.itiszakk.assetlab.desktop.configuration.DesktopModule;
 import com.itiszakk.assetlab.desktop.controller.MainController;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
@@ -31,7 +32,7 @@ public final class FileUtils {
 
     private static final Preferences PREFERENCES = Preferences.userNodeForPackage(MainController.class);
     private static final String LAST_DIRECTION_KEY = "last_directory";
-    private static final String FILE_CHOOSER_TITLE = "utils.file_chooser.title";
+    private static final String FILE_CHOOSER_TITLE = DesktopModule.MODULE_ID + ".file.chooser.title";
     private static final String DOT = ".";
 
     private FileUtils() {}

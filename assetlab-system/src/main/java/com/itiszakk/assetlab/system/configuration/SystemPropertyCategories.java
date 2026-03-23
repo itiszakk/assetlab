@@ -5,7 +5,7 @@ import com.itiszakk.assetlab.system.util.TextUtils;
 
 public final class SystemPropertyCategories {
 
-    private static final String GENERAL_CATEGORY_ID = "system.property.category.general";
+    private static final String GENERAL_CATEGORY_ID = SystemModule.MODULE_ID + ".property.category.general";
 
     private SystemPropertyCategories() {}
 

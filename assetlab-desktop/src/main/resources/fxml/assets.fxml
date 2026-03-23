@@ -4,10 +4,11 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox styleClass="container" stylesheets="@/css/assets.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itiszakk.assetlab.desktop.controller.AssetsController">
+<VBox styleClass="container" stylesheets="@/css/assets.css" xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itiszakk.assetlab.desktop.controller.AssetsController">
     <HBox styleClass="assets-title">
-        <Label styleClass="title-label" text="%assets.title" />
-        <Label fx:id="countLabel" styleClass="count-label" />
+        <Label styleClass="title-label" text="%com.itiszakk.assetlab.desktop.assets.title"/>
+        <Label fx:id="countLabel" styleClass="count-label"/>
     </HBox>
-    <ListView fx:id="assetsView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="assetsView" VBox.vgrow="ALWAYS"/>
 </VBox>

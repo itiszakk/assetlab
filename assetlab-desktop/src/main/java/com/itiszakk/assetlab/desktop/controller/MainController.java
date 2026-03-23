@@ -16,6 +16,7 @@ import com.itiszakk.assetlab.core.service.AssetMetadataService;
 import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.type.Asset;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
+import com.itiszakk.assetlab.desktop.configuration.DesktopModule;
 import com.itiszakk.assetlab.desktop.type.StageController;
 import com.itiszakk.assetlab.desktop.type.StageOptions;
 import com.itiszakk.assetlab.desktop.util.FileUtils;
@@ -31,7 +32,7 @@ import javafx.scene.control.MenuItem;
 public class MainController implements StageController {
 
     private static final String CONTROLLER_ID = "main";
-    private static final String STAGE_TITLE = "main.title";
+    private static final String STAGE_TITLE = DesktopModule.MODULE_ID + ".main.title";
     private static final int STAGE_MIN_WIDTH = 800;
     private static final int STAGE_MIN_HEIGHT = 600;
 

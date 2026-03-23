@@ -21,6 +21,7 @@ import javafx.scene.layout.StackPane;
 public class PreviewController implements Controller {
 
     private static final String CONTROLLER_ID = "preview";
+
     private final AssetService assetService;
 
     @FXML
