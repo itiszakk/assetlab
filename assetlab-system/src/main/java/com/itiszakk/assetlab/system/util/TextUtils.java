@@ -12,11 +12,11 @@ public final class TextUtils {
         TextUtils.textService = textService;
     }
 
-    public static String getText(String code) {
-        return textService.getText(code);
-    }
-
     public static String getText(String code, Object... args) {
         return textService.getText(code, args);
+    }
+
+    public static String getTextOrDefault(String code, String defaultValue, Object... args) {
+        return textService.getTextOrDefault(code, defaultValue, args);
     }
 }

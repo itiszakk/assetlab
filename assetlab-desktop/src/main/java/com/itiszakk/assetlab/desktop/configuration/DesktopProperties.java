@@ -2,8 +2,11 @@ package com.itiszakk.assetlab.desktop.configuration;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 import com.itiszakk.assetlab.desktop.type.DesktopTheme;
+import com.itiszakk.assetlab.desktop.type.PropertyWrapper;
+import com.itiszakk.assetlab.system.configuration.SystemProperties;
 import com.itiszakk.assetlab.system.type.property.PropertyDefinition;
 import com.itiszakk.assetlab.system.util.TextUtils;
 
@@ -24,7 +27,8 @@ public final class DesktopProperties {
             .deserializer(DesktopTheme::valueOf)
             .build();
 
-    public static final Collection<PropertyDefinition<?>> PROPERTY_DEFINITIONS = List.of(
-            THEME
-    );
+    public static final PropertyWrapper<Locale> LOCALE_WRAPPER = PropertyWrapper.of(SystemProperties.LOCALE);
+    public static final PropertyWrapper<DesktopTheme> THEME_WRAPPER = PropertyWrapper.of(THEME);
+
+    public static final Collection<PropertyDefinition<?>> PROPERTY_DEFINITIONS = List.of(THEME);
 }

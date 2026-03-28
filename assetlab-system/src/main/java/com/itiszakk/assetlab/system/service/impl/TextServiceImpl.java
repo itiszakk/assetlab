@@ -23,10 +23,15 @@ public class TextServiceImpl implements TextService {
 
     @Override
     public String getText(String code, Object... args) {
+        return getTextOrDefault(code, code, args);
+    }
+
+    @Override
+    public String getTextOrDefault(String code, String defaultValue, Object... args) {
         String message = getMessageFromBundles(code);
         return StringUtils.isNotEmpty(message)
                 ? MessageFormat.format(message, args)
-                : null;
+                : defaultValue;
     }
 
     private String getMessageFromBundles(String code) {

@@ -2,6 +2,7 @@ package com.itiszakk.assetlab.desktop.controller;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import com.itiszakk.assetlab.core.configuration.CoreEvents;
 import com.itiszakk.assetlab.core.service.AssetMetadataService;
@@ -9,7 +10,6 @@ import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 import com.itiszakk.assetlab.desktop.configuration.DesktopEvents;
 import com.itiszakk.assetlab.desktop.configuration.DesktopModule;
-import com.itiszakk.assetlab.desktop.type.AssetItem;
 import com.itiszakk.assetlab.desktop.type.Controller;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 import com.itiszakk.assetlab.system.service.EventService;
@@ -77,7 +77,7 @@ public class AssetsController implements Controller {
         deleteItem.setOnAction(event -> {
 
             List<String> ids = assetsView.getSelectionModel().getSelectedItems().stream()
-                    .map(AssetItem::getAssetId)
+                    .map(AssetItem::assetId)
                     .toList();
 
             assetService.deleteAll(ids);
@@ -94,7 +94,7 @@ public class AssetsController implements Controller {
         if (item == null) {
             eventService.send(DesktopEvents.ASSET_ITEM_DESELECTED);
         } else {
-            eventService.send(DesktopEvents.ASSET_ITEM_SELECTED, item);
+            eventService.send(DesktopEvents.ASSET_ITEM_SELECTED, item.assetId());
         }
     }
 
@@ -122,9 +122,26 @@ public class AssetsController implements Controller {
     }
 
     private static AssetItem createAssetItem(AssetMetadata metadata) {
-        return AssetItem.builder()
-                .assetId(metadata.getAssetId())
-                .assetDisplayName(metadata.getAssetDisplayName())
-                .build();
+        return new AssetItem(metadata.getAssetId(), metadata.getAssetDisplayName());
+    }
+
+    record AssetItem(String assetId, String assetDisplayName) {
+
+        @Override
+        public String toString() {
+            return assetDisplayName;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            if (object == null || getClass() != object.getClass()) return false;
+            AssetItem assetItem = (AssetItem) object;
+            return Objects.equals(assetId, assetItem.assetId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(assetId);
+        }
     }
 }

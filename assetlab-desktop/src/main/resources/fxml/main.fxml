@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
+<?import com.itiszakk.assetlab.desktop.type.scene.LocalizedMenu?>
+<?import com.itiszakk.assetlab.desktop.type.scene.LocalizedMenuItem?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,16 +10,18 @@
             fx:controller="com.itiszakk.assetlab.desktop.controller.MainController">
     <top>
         <MenuBar>
-            <Menu text="%com.itiszakk.assetlab.desktop.main.menu.file">
-                <MenuItem onAction="#loadAssets" text="%com.itiszakk.assetlab.desktop.main.menu.file.load.assets"/>
+            <LocalizedMenu key="com.itiszakk.assetlab.desktop.main.menu.file">
+                <LocalizedMenuItem onAction="#loadAssets"
+                                   key="com.itiszakk.assetlab.desktop.main.menu.file.load.assets"/>
                 <SeparatorMenuItem/>
-                <MenuItem fx:id="settingsMenuItem" text="%com.itiszakk.assetlab.desktop.main.menu.file.settings"/>
+                <LocalizedMenuItem fx:id="settingsMenuItem"
+                                   key="com.itiszakk.assetlab.desktop.main.menu.file.settings"/>
                 <SeparatorMenuItem/>
-                <MenuItem onAction="#exit" text="%com.itiszakk.assetlab.desktop.main.menu.file.exit"/>
-            </Menu>
-            <Menu text="%com.itiszakk.assetlab.desktop.main.menu.help">
-                <MenuItem fx:id="aboutMenuItem" text="%com.itiszakk.assetlab.desktop.main.menu.help.about"/>
-            </Menu>
+                <LocalizedMenuItem onAction="#exit" key="com.itiszakk.assetlab.desktop.main.menu.file.exit"/>
+            </LocalizedMenu>
+            <LocalizedMenu key="com.itiszakk.assetlab.desktop.main.menu.help">
+                <LocalizedMenuItem fx:id="aboutMenuItem" key="com.itiszakk.assetlab.desktop.main.menu.help.about"/>
+            </LocalizedMenu>
         </MenuBar>
     </top>
     <center>

@@ -19,7 +19,7 @@ public final class ResourceUtils {
 
     public static ResourceBundle loadBundle(String name, ClassLoader classLoader) {
         try {
-            return ResourceBundle.getBundle(name, SystemProperties.SYSTEM_LOCALE.getValue(), classLoader);
+            return ResourceBundle.getBundle(name, SystemProperties.LOCALE.getValue(), classLoader);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

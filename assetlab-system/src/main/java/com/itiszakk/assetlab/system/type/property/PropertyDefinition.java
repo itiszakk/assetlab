@@ -14,7 +14,7 @@ public class PropertyDefinition<T> {
     private final T defaultValue;
     private final Function<T, String> serializer;
     private final Function<String, T> deserializer;
-    private final T value;
+    private T value;
 
     private PropertyDefinition(Builder<T> builder) {
         this.type = builder.type;
@@ -23,9 +23,9 @@ public class PropertyDefinition<T> {
         this.description = builder.description;
         this.category = builder.category;
         this.defaultValue = builder.defaultValue;
-        this.value = builder.defaultValue;
         this.serializer = builder.serializer;
         this.deserializer = builder.deserializer;
+        this.value = builder.defaultValue;
     }
 
     public Class<T> getType() {
@@ -54,6 +54,10 @@ public class PropertyDefinition<T> {
 
     public T getValue() {
         return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
     }
 
     public String serialize() {

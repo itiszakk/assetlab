@@ -13,9 +13,8 @@ import com.itiszakk.assetlab.core.type.Asset;
 import com.itiszakk.assetlab.core.type.AssetMetadata;
 import com.itiszakk.assetlab.core.type.Tag;
 import com.itiszakk.assetlab.core.util.FormatUtils;
-import com.itiszakk.assetlab.desktop.type.AssetItem;
-import com.itiszakk.assetlab.desktop.type.Controller;
 import com.itiszakk.assetlab.desktop.configuration.DesktopEvents;
+import com.itiszakk.assetlab.desktop.type.Controller;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 import com.itiszakk.assetlab.system.service.EventService;
 
@@ -85,8 +84,8 @@ public class MetadataController implements Controller {
         tagService = context.get(TagService.class);
 
         EventService eventService = context.get(EventService.class);
-        eventService.subscribe(DesktopEvents.ASSET_ITEM_SELECTED, this::onItemSelected);
-        eventService.subscribe(DesktopEvents.ASSET_ITEM_DESELECTED, this::onItemDeselected);
+        eventService.subscribe(DesktopEvents.ASSET_ITEM_SELECTED, this::onAssetSelected);
+        eventService.subscribe(DesktopEvents.ASSET_ITEM_DESELECTED, this::onAssetDeselected);
     }
 
     @Override
@@ -100,10 +99,10 @@ public class MetadataController implements Controller {
         metadataContainer.disableProperty().bind(Bindings.isNull(metadataProperty));
     }
 
-    private void onItemSelected(AssetItem item) {
+    private void onAssetSelected(String assetId) {
 
-        Asset asset = assetService.load(item.getAssetId());
-        idLabel.setText(item.getAssetId());
+        Asset asset = assetService.load(assetId);
+        idLabel.setText(assetId);
         nameLabel.setText(asset.getName());
         extensionLabel.setText(asset.getExtension());
         pathLabel.setText(asset.getPath());
@@ -114,7 +113,7 @@ public class MetadataController implements Controller {
             resolutionLabel.setText(resolution);
         }
 
-        AssetMetadata metadata = assetMetadataService.load(item.getAssetId());
+        AssetMetadata metadata = assetMetadataService.load(assetId);
         metadataProperty.set(metadata);
         displayNameField.setText(metadata.getAssetDisplayName());
         descriptionArea.setText(metadata.getDescription());
@@ -134,7 +133,7 @@ public class MetadataController implements Controller {
         }
     }
 
-    private void onItemDeselected() {
+    private void onAssetDeselected() {
         metadataProperty.set(null);
         idLabel.setText(null);
         nameLabel.setText(null);

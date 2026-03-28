@@ -30,7 +30,6 @@ public class SettingsController implements StageController {
     private static final int STAGE_MIN_HEIGHT = 600;
 
     private static final Map<StageOptions, Object> STAGE_PROPERTIES = new EnumMap<>(StageOptions.class);
-
     static {
         STAGE_PROPERTIES.put(StageOptions.TITLE, TextUtils.getText(STAGE_TITLE));
         STAGE_PROPERTIES.put(StageOptions.MIN_WIDTH, STAGE_MIN_WIDTH);

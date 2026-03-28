@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.itiszakk.assetlab.desktop.type.scene.LocalizedButton?>
+<?import com.itiszakk.assetlab.desktop.type.scene.LocalizedLabel?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -13,67 +15,70 @@
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.itiszakk.assetlab.desktop.controller.MetadataController">
     <HBox styleClass="actions-container">
-        <Button onAction="#saveMetadata" styleClass="save-metadata-button"
-                text="%com.itiszakk.assetlab.desktop.metadata.action.save"/>
-        <Button onAction="#deleteAsset" styleClass="delete-asset-button"
-                text="%com.itiszakk.assetlab.desktop.metadata.action.delete"/>
+        <LocalizedButton onAction="#saveMetadata" styleClass="save-metadata-button"
+                         key="com.itiszakk.assetlab.desktop.metadata.action.save"/>
+        <LocalizedButton onAction="#deleteAsset" styleClass="delete-asset-button"
+                         key="com.itiszakk.assetlab.desktop.metadata.action.delete"/>
     </HBox>
     <Separator/>
     <ScrollPane styleClass="scroll-container" VBox.vgrow="ALWAYS">
         <VBox styleClass="info-container">
             <VBox>
-                <Label styleClass="title-label" text="%com.itiszakk.assetlab.desktop.metadata.info.asset.title"/>
+                <LocalizedLabel styleClass="title-label" key="com.itiszakk.assetlab.desktop.metadata.info.asset.title"/>
                 <VBox>
-                    <Label styleClass="field-label" text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.id"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.asset.field.id"/>
                     <Label fx:id="idLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.name"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.asset.field.name"/>
                     <Label fx:id="nameLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.extension" wrapText="true"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.asset.field.extension"
+                                    wrapText="true"/>
                     <Label fx:id="extensionLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.path"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.asset.field.path"/>
                     <Label fx:id="pathLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.resolution"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.asset.field.resolution"/>
                     <Label fx:id="resolutionLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.asset.field.size"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.asset.field.size"/>
                     <Label fx:id="sizeLabel"/>
                 </VBox>
             </VBox>
             <Separator/>
             <VBox>
-                <Label styleClass="title-label" text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.title"/>
+                <LocalizedLabel styleClass="title-label"
+                                key="com.itiszakk.assetlab.desktop.metadata.info.metadata.title"/>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.field.display.name"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.metadata.field.display.name"/>
                     <TextField fx:id="displayNameField"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.field.description"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.metadata.field.description"/>
                     <TextArea fx:id="descriptionArea"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.field.timestamp"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.metadata.field.timestamp"/>
                     <Label fx:id="timestampLabel"/>
                 </VBox>
                 <VBox>
-                    <Label styleClass="field-label"
-                           text="%com.itiszakk.assetlab.desktop.metadata.info.metadata.field.tags"/>
+                    <LocalizedLabel styleClass="field-label"
+                                    key="com.itiszakk.assetlab.desktop.metadata.info.metadata.field.tags"/>
                     <FlowPane fx:id="tagsPane" styleClass="tags-container">
                         <Button onAction="#upsertTag" text="+"/>
                     </FlowPane>

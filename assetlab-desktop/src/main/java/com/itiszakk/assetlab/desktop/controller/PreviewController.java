@@ -6,9 +6,8 @@ import java.io.InputStream;
 
 import com.itiszakk.assetlab.core.service.AssetService;
 import com.itiszakk.assetlab.core.type.Asset;
-import com.itiszakk.assetlab.desktop.type.AssetItem;
-import com.itiszakk.assetlab.desktop.type.Controller;
 import com.itiszakk.assetlab.desktop.configuration.DesktopEvents;
+import com.itiszakk.assetlab.desktop.type.Controller;
 import com.itiszakk.assetlab.system.configuration.ApplicationContext;
 import com.itiszakk.assetlab.system.service.EventService;
 
@@ -38,8 +37,8 @@ public class PreviewController implements Controller {
         assetService = context.get(AssetService.class);
 
         EventService eventService = context.get(EventService.class);
-        eventService.subscribe(DesktopEvents.ASSET_ITEM_SELECTED, this::onItemSelected);
-        eventService.subscribe(DesktopEvents.ASSET_ITEM_DESELECTED, this::onItemDeselected);
+        eventService.subscribe(DesktopEvents.ASSET_ITEM_SELECTED, this::onAssetSelected);
+        eventService.subscribe(DesktopEvents.ASSET_ITEM_DESELECTED, this::onAssetDeselected);
     }
 
     @Override
@@ -53,9 +52,9 @@ public class PreviewController implements Controller {
         previewContainer.disableProperty().bind(preview.imageProperty().isNull());
     }
 
-    private void onItemSelected(AssetItem item) {
+    private void onAssetSelected(String assetId) {
         try {
-            Asset asset = assetService.load(item.getAssetId());
+            Asset asset = assetService.load(assetId);
 
             File file = new File(asset.getPath());
             InputStream input = new FileInputStream(file);
@@ -75,7 +74,7 @@ public class PreviewController implements Controller {
         preview.setFitHeight(previewScroll.getHeight());
     }
 
-    private void onItemDeselected() {
+    private void onAssetDeselected() {
         preview.setImage(null);
     }
 }
